@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Login</class>
+ <widget class="QWidget" name="Login">
+  <property name="geometry">
+  <rect>
+   <x>0</x>
+   <y>0</y>
+   <width>850</width>
+   <height>750</height>
+  </rect>
+ </property>
+ <property name="styleSheet">
+  <string notr="true">
+   QWidget#login { background-color: #FFFFFF; }
+   QLabel#titleLabel { font-size: 32px; font-weight: bold; color: #1C1C1E; }
+   QLineEdit {
+       background-color: #F2F2F7;
+       border: 1px solid #E5E5EA;
+       border-radius: 12px;
+       padding: 15px;
+       font-size: 15px;
+   }
+   QLineEdit:focus { border: 1px solid #007AFF; background-color: #FFFFFF; }
+   QPushButton#loginButton {
+       background-color: #007AFF;
+       color: white;
+       border: none;
+       border-radius: 12px;
+       font-size: 16px;
+       font-weight: bold;
+       padding: 15px;
+   }
+   QPushButton#signupButton {
+       background-color: transparent;
+       color: #007AFF;
+       border: none;
+       font-size: 14px;
+   }
+  </string>
+ </property>
+ <layout class="QVBoxLayout" name="mainLayout">
+  <property name="leftMargin"><number>250</number></property> <property name="topMargin"><number>120</number></property>
+  <property name="rightMargin"><number>250</number></property>
+  <property name="bottomMargin"><number>100</number></property>
+  <item>
+   <widget class="QLabel" name="titleLabel">
+    <property name="text"><string>로그인</string></property>
+    <property name="alignment"><set>Qt::AlignCenter</set></property>
+   </widget>
+  </item>
+  <item><spacer><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint"><size><width>20</width><height>40</height></size></property></spacer></item>
+  <item><widget class="QLineEdit" name="idInput"><property name="placeholderText"><string>아이디</string></property></widget></item>
+  <item><widget class="QLineEdit" name="pwInput"><property name="echoMode"><enum>QLineEdit::Password</enum></property><property name="placeholderText"><string>비밀번호</string></property></widget></item>
+  <item><spacer><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint"><size><width>20</width><height>20</height></size></property></spacer></item>
+  <item><widget class="QPushButton" name="loginButton"><property name="text"><string>로그인</string></property></widget></item>
+  <item><widget class="QPushButton" name="signupButton"><property name="text"><string>새로운 계정 만들기</string></property></widget></item>
+  <item><spacer><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint"><size><width>20</width><height>40</height></size></property></spacer></item>
+ </layout>
+</widget>
+</ui>

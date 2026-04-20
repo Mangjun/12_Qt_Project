@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddSchedule</class>
+ <widget class="QDialog" name="AddSchedule">
+  <property name="geometry">
+  <rect>
+   <x>0</x>
+   <y>0</y>
+   <width>500</width>
+   <height>650</height>
+  </rect>
+ </property>
+ <property name="windowTitle">
+  <string>일정 추가</string>
+ </property>
+ <property name="styleSheet">
+  <string notr="true">
+   QDialog {
+       background-color: #FFFFFF;
+   }
+
+   QLabel#titleLabel {
+       font-size: 24px;
+       font-weight: bold;
+       color: #1C1C1E;
+   }
+
+   QLabel#fieldLabel {
+       font-size: 13px;
+       font-weight: bold;
+       color: #8E8E93;
+       margin-top: 5px;
+   }
+
+   /* 입력창 공통 스타일 */
+   QLineEdit, QDateEdit, QTextEdit {
+       background-color: #F2F2F7;
+       border: 1px solid #E5E5EA;
+       border-radius: 12px;
+       padding: 10px;
+       font-size: 14px;
+       color: #1C1C1E;
+   }
+   QLineEdit:focus, QDateEdit:focus, QTextEdit:focus {
+       border: 1px solid #007AFF;
+       background-color: #FFFFFF;
+   }
+
+   /* 추가 버튼 */
+   QPushButton#addButton {
+       background-color: #007AFF;
+       color: white;
+       border: none;
+       border-radius: 12px;
+       font-size: 15px;
+       font-weight: bold;
+       padding: 14px;
+   }
+   QPushButton#addButton:pressed {
+       background-color: #0051A8;
+   }
+
+   /* 취소 버튼 */
+   QPushButton#cancelButton {
+       background-color: #E5E5EA;
+       color: #1C1C1E;
+       border: none;
+       border-radius: 12px;
+       font-size: 15px;
+       padding: 14px;
+   }
+   QPushButton#cancelButton:hover {
+       background-color: #D1D1D6;
+   }
+  </string>
+ </property>
+
+ <layout class="QVBoxLayout" name="mainLayout">
+  <property name="spacing">
+   <number>12</number>
+  </property>
+  <property name="leftMargin">
+   <number>50</number>
+  </property>
+  <property name="topMargin">
+   <number>50</number>
+  </property>
+  <property name="rightMargin">
+   <number>50</number>
+  </property>
+  <property name="bottomMargin">
+   <number>50</number>
+  </property>
+
+  <item>
+   <widget class="QLabel" name="titleLabel">
+    <property name="text">
+     <string>새로운 일정</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </item>
+
+  <item>
+   <spacer name="vSpacer1">
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <property name="sizeType">
+     <enum>QSizePolicy::Fixed</enum>
+    </property>
+    <property name="sizeHint" stdset="0">
+     <size>
+      <width>20</width>
+      <height>20</height>
+     </size>
+    </property>
+   </spacer>
+  </item>
+
+  <item>
+   <widget class="QLabel" name="fieldLabel">
+    <property name="text">
+     <string>제목</string>
+    </property>
+   </widget>
+  </item>
+  <item>
+   <widget class="QLineEdit" name="titleInput">
+    <property name="placeholderText">
+     <string>어떤 일정인가요?</string>
+    </property>
+   </widget>
+  </item>
+
+  <item>
+   <widget class="QLabel" name="fieldLabel">
+    <property name="text">
+     <string>날짜</string>
+    </property>
+   </widget>
+  </item>
+  <item>
+   <widget class="QDateEdit" name="dateInput">
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </item>
+
+  <item>
+   <widget class="QLabel" name="fieldLabel">
+    <property name="text">
+     <string>세부 사항</string>
+    </property>
+   </widget>
+  </item>
+  <item>
+   <widget class="QTextEdit" name="detailsInput">
+    <property name="placeholderText">
+     <string>내용을 입력하세요...</string>
+    </property>
+   </widget>
+  </item>
+
+  <item>
+   <spacer name="vSpacer2">
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <property name="sizeHint" stdset="0">
+     <size>
+      <width>20</width>
+      <height>20</height>
+     </size>
+    </property>
+   </spacer>
+  </item>
+
+  <item>
+   <layout class="QVBoxLayout" name="buttonLayout">
+    <property name="spacing">
+     <number>10</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="addButton">
+      <property name="text">
+       <string>일정 추가</string>
+      </property>
+      <property name="cursor">
+       <cursor shape="PointingHandCursor"/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="cancelButton">
+      <property name="text">
+       <string>취소</string>
+      </property>
+      <property name="cursor">
+       <cursor shape="PointingHandCursor"/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </item>
+ </layout>
+</widget>
+</ui>
