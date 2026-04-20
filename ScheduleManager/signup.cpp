@@ -7,6 +7,7 @@ Signup::Signup(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->signupButton, SIGNAL(clicked(bool)), this, SLOT(clickedAcceptBtn()));
+    connect(ui->cancelButton, SIGNAL(clicked(bool)), this, SLOT(clickedRejectBtn()));
 }
 
 Signup::~Signup()
@@ -35,4 +36,9 @@ void Signup::clickedAcceptBtn()
     {
         ui->pwConfirmInput->setStyleSheet("border: 1.5px solid #FF3B30; background-color: #FFF2F2");
     }
+}
+
+void Signup::clickedRejectBtn()
+{
+    reject();
 }
