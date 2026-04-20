@@ -2,6 +2,9 @@
 #define CALENDAR_H
 
 #include <QWidget>
+#include "widgetmanager.h"
+#include "date.h"
+#include "schedule.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,8 +21,14 @@ public:
     ~Calendar() override;
     void searchSchedule(QString title);
 
+signals:
+    void dateInfo();
+    void scheduleInfo(const Schedule& schedule);
+
 private:
     Ui::Calendar *ui;
+    void gotoDate();
+    void gotoSchedule();
 
 private slots:
     void searchTextChanged();

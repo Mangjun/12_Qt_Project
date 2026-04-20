@@ -3,7 +3,9 @@
 
 #include <QWidget>
 #include "cuser.h"
+#include "widgetmanager.h"
 #include "signup.h"
+#include "calendar.h"
 
 namespace Ui {
 class Login;
@@ -24,12 +26,10 @@ public:
 
 private:
     Ui::Login *ui;
-
-signals:
     /**
-     * @brief 로그인 성공 신호
+     * @brief gotoCalendar 캘린더 화면으로 이동
      */
-    void loginSuccess();
+    void gotoCalendar();
 
 private slots:
     /**

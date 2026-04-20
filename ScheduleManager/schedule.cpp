@@ -1,5 +1,6 @@
 #include "schedule.h"
 #include "ui_schedule.h"
+#include "date.h"
 
 Schedule::Schedule(QWidget *parent)
     : QWidget(parent)
@@ -13,12 +14,8 @@ Schedule::~Schedule()
     delete ui;
 }
 
+/* 비즈니스 로직 */
 void Schedule::updateSchedule(CSchedule schedule)
-{
-
-}
-
-void Schedule::back()
 {
 
 }
@@ -33,6 +30,12 @@ void Schedule::right()
 
 }
 
+/* 이벤트 처리 */
+void Schedule::back()
+{
+    gotoDate();
+}
+
 void Schedule::clickedDeleteBtn()
 {
 
@@ -41,4 +44,11 @@ void Schedule::clickedDeleteBtn()
 void Schedule::clickedSaveBtn()
 {
 
+}
+
+void Schedule::gotoDate()
+{
+    Date* date = WidgetManager::instance().getDate();
+    date->show();
+    this->hide();
 }

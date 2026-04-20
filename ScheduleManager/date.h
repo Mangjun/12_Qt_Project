@@ -2,6 +2,7 @@
 #define DATE_H
 
 #include <QWidget>
+#include "widgetmanager.h"
 
 namespace Ui {
 class Date;
@@ -18,6 +19,8 @@ public:
 
 private:
     Ui::Date *ui;
+    void gotoCalendar();
+    void gotoSchedule();
 
 private slots:
     void back();
