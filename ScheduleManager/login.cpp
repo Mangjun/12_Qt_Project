@@ -20,7 +20,7 @@ void Login::userLogin(CUser user)
     bool isLogin = false;
 
     /* 서버에서 로그인 로직 처리 */
-    qDebug() << QString("id: %1, pw: %2").arg(user.getId()).arg(user.getPw());
+    qDebug() << QString("id: %1, pw: %2").arg(user.getUserId()).arg(user.getUserPw());
     isLogin = true;
 
     if (isLogin)

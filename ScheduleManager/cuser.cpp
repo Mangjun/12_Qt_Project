@@ -5,33 +5,40 @@ CUser::CUser()
 
 }
 
-CUser::CUser(QString id, QString pw) : id(id), pw(pw)
+CUser::CUser(QString userId, QString userPw) : id(0), userId(userId), userPw(userPw)
 {
 
 }
 
-void CUser::setId(const QString id)
+void CUser::setId(const int id)
 {
-    if(id != nullptr)
-    {
-        this->id = id;
-    }
+    if (id < 0) return;
+    this->id = id;
 }
 
-QString CUser::getId() const
+int CUser::getId() const
 {
     return this->id;
 }
 
-void CUser::setPw(const QString pw)
+void CUser::setUserId(const QString userId)
 {
-    if(pw != nullptr)
-    {
-        this->pw = pw;
-    }
+    if(userId == nullptr) return;
+    this->userId = userId;
 }
 
-QString CUser::getPw() const
+QString CUser::getUserId() const
 {
-    return this->pw;
+    return this->userId;
+}
+
+void CUser::setUserPw(const QString userPw)
+{
+    if(userPw == nullptr) return;
+    this->userPw = userPw;
+}
+
+QString CUser::getUserPw() const
+{
+    return this->userPw;
 }
