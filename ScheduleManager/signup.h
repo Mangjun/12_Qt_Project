@@ -26,9 +26,13 @@ private:
 
 private slots:
     /**
-     * @brief 회원가입 버튼 클릭 이벤트
+     * @brief 회원가입 확인 버튼 클릭 이벤트
      */
     void clickedAcceptBtn();
+    /**
+     * @brief clickedRejectBtn 회원가입 취소 버튼 클릭 이벤트
+     */
+    void clickedRejectBtn();
 };
 
 #endif // SIGNUP_H
