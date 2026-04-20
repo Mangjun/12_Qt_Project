@@ -15,12 +15,19 @@ class Signup : public QDialog
 public:
     explicit Signup(QWidget *parent = nullptr);
     ~Signup();
-    void signUp(CUser user);
+    /**
+     * @brief 회원가입 로직
+     * @param user 사용자에게 입력받은 회원 정보
+     */
+    void signUp(const CUser& user);
 
 private:
     Ui::Signup *ui;
 
 private slots:
+    /**
+     * @brief 회원가입 버튼 클릭 이벤트
+     */
     void clickedAcceptBtn();
 };
 
