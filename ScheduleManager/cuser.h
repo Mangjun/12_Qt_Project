@@ -6,17 +6,21 @@
 class CUser
 {
 private:
-    QString id;
-    QString pw;
+    int id;
+    QString userId;
+    QString userPw;
 public:
     CUser();
-    CUser(QString id, QString pw);
+    CUser(QString userId, QString userPw);
 
-    void setId(const QString id);
-    QString getId() const;
+    void setId(const int id);
+    int getId() const;
 
-    void setPw(const QString pw);
-    QString getPw() const;
+    void setUserId(const QString userId);
+    QString getUserId() const;
+
+    void setUserPw(const QString userPw);
+    QString getUserPw() const;
 };
 
 #endif // CUSER_H
