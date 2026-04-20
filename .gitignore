@@ -1,41 +1,58 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
+# --- 빌드 결과물 (기본 설정 유지 및 확장) ---
 *.slo
 *.lo
 *.o
 *.obj
-
-# Precompiled Headers
 *.gch
 *.pch
-
-# Linker files
 *.ilk
-
-# Debugger Files
 *.pdb
-
-# Compiled Dynamic libraries
 *.so
 *.dylib
 *.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
 *.lai
 *.la
 *.a
 *.lib
-
-# Executables
 *.exe
 *.out
 *.app
-
-# debug information files
 *.dwo
+*.exp
+
+# --- Qt 전용 생성 파일 (소스 코드 내 생성 방지) ---
+# Qt가 UI, 리소스, 메타 객체 정보를 처리하며 만드는 파일들입니다.
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.moc
+
+# --- 빌드 디렉토리 (Shadow Build) ---
+# 빌드 시 생성되는 폴더 전체를 제외하는 것이 깔끔합니다.
+build*/
+*-build-*/
+
+# --- Qt Creator / IDE 설정 ---
+# 개발자 개인의 창 배치나 설정 파일입니다.
+*.user
+*.user.*
+*.autosave
+
+# --- 빌드 시스템 관련 (CMake/qmake) ---
+# qmake 관련
+.qmake.stash
+Makefile*
+
+# CMake 관련 (프로젝트 루트에서 빌드할 경우 대비)
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# --- 기타 ---
+*.d
+.DS_Store (Mac 사용 시)
+Thumbs.db (Windows 사용 시)
