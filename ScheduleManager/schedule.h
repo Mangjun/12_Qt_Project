@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "cschedule.h"
+#include "widgetmanager.h"
+
+class Date;
 
 namespace Ui {
 class Schedule;
@@ -19,6 +22,7 @@ public:
 
 private:
     Ui::Schedule *ui;
+    void gotoDate();
 
 private slots:
     void back();
