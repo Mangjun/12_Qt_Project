@@ -9,10 +9,13 @@ private:
     QString id;
     QString pw;
 public:
-    QString setId(const QString id);
+    CUser();
+    CUser(QString id, QString pw);
+
+    void setId(const QString id);
     QString getId() const;
 
-    QString setPw(const QString pw);
+    void setPw(const QString pw);
     QString getPw() const;
 };
 
