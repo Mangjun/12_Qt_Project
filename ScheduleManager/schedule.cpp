@@ -8,6 +8,8 @@ Schedule::Schedule(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->backButton, SIGNAL(clicked(bool)), this, SLOT(back()));
+    connect(ui->deleteButton, SIGNAL(clicked(bool)), this, SLOT(clickedDeleteBtn()));
+    connect(ui->saveButton, SIGNAL(clicked(bool)), this, SLOT(clickedSaveBtn()));
 }
 
 Schedule::~Schedule()
@@ -16,16 +18,23 @@ Schedule::~Schedule()
 }
 
 /* 비즈니스 로직 */
-void Schedule::updateSchedule(CSchedule schedule)
+void Schedule::updateSchedule(CSchedule sc)
 {
+    WidgetManager::instance().updateSchedule(sc);
+}
 
+void Schedule::deleteSchedule(CSchedule sc)
+{
+    WidgetManager::instance().deleteSchedule(sc);
 }
 
 void Schedule::receiveScheduleInfo(const CSchedule& sc)
 {
-    QString title = sc.getTitle();
-    QDate date = sc.getDate();
-    QString detail = sc.getDetail();
+    this->csInfo = sc;
+
+    QString title = csInfo.getTitle();
+    QDate date = csInfo.getDate();
+    QString detail = csInfo.getDetail();
 
     ui->titleEdit->setText(title);
     ui->dateEdit->setDate(date);
@@ -42,12 +51,24 @@ void Schedule::back()
 
 void Schedule::clickedDeleteBtn()
 {
+    QDate date = ui->dateEdit->date();
 
+    deleteSchedule(this->csInfo);
+
+    emit sendDateInfo(date);
+    gotoDate();
 }
 
 void Schedule::clickedSaveBtn()
 {
+    QString title = ui->titleEdit->text();
+    QDate date = ui->dateEdit->date();
+    QString detail = ui->detailEdit->toPlainText();
 
+    CSchedule newCs(title, date, detail);
+    newCs.setId(csInfo.getId());
+
+    updateSchedule(newCs);
 }
 
 void Schedule::gotoDate()

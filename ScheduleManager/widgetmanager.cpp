@@ -83,7 +83,7 @@ void WidgetManager::insertSchedule(const CSchedule& cs)
 void WidgetManager::updateSchedule(CSchedule cs)
 {
     QDate date = cs.getDate();
-    QList<CSchedule> list = this->cache[date];
+    QList<CSchedule>& list = this->cache[date];
 
     for (auto& oldSc : list)
     {
@@ -98,11 +98,20 @@ void WidgetManager::updateSchedule(CSchedule cs)
 void WidgetManager::deleteSchedule(CSchedule cs)
 {
     QDate date = cs.getDate();
-    QList<CSchedule> list = this->cache[date];
+    QList<CSchedule>& list = this->cache[date];
 
+    int i = 0;
     for (auto& oldSc : list)
     {
+        if (oldSc.getId() == cs.getId())
+        {
+            list.removeAt(i);
+            break;
+        }
+    }
 
+    if (list.isEmpty()) {
+        this->cache.remove(date);
     }
 }
 

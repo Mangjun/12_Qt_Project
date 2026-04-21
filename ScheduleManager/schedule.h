@@ -18,10 +18,13 @@ class Schedule : public QWidget
 public:
     explicit Schedule(QWidget *parent = nullptr);
     ~Schedule();
-    void updateSchedule(CSchedule schedule);
+    void updateSchedule(CSchedule sc);
+    void deleteSchedule(CSchedule sc);
 
 private:
     Ui::Schedule *ui;
+    CSchedule csInfo;
+
     void gotoDate();
 
 signals:
