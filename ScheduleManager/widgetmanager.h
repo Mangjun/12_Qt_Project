@@ -2,7 +2,8 @@
 #define WIDGETMANAGER_H
 
 #include <QObject>
-#include <QVector>
+#include <QList>
+
 #include "cuser.h"
 #include "cschedule.h"
 
@@ -23,6 +24,9 @@ private:
     Date* datePtr;
     Schedule* schedulePtr;
     CUser userInfo;
+    QMap<QDate, QList<CSchedule>> cache;
+
+    static int scheduleNumber;
 
 public:
     /**
@@ -38,8 +42,15 @@ public:
     Calendar* getCalendar();
     Date* getDate();
     Schedule* getSchedule();
+
     const CUser& getUserInfo() const;
     void setUserInfo(const CUser& user);
+    void updateCache(QList<CSchedule> vcs);
+    QList<CSchedule> getSchedules(QDate date);
+    void insertSchedule(CSchedule& cs);
+    void updateSchedule(CSchedule cs);
+    void deleteSchedule(CSchedule cs);
+    QList<CSchedule> searchSchedule(QString title);
 };
 
 #endif // WIDGETMANAGER_H

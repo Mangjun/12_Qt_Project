@@ -15,10 +15,9 @@ AddSchedule::~AddSchedule()
     delete ui;
 }
 
-void AddSchedule::addSchedule(const CSchedule& schedule)
+void AddSchedule::addSchedule(CSchedule& schedule)
 {
-    /* 일정 추가 로직 */
-    qDebug() << schedule.getTitle() << " " << schedule.getDate() << " " << schedule.getDetail();
+    WidgetManager::instance().insertSchedule(schedule);
     accept();
 }
 
