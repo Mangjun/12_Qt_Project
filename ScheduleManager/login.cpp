@@ -19,18 +19,25 @@ void Login::userLogin(CUser user)
 {
     bool isLogin = false;
 
-    /* 서버에서 로그인 로직 처리 */
-    qDebug() << QString("id: %1, pw: %2").arg(user.getUserId()).arg(user.getUserPw());
-    isLogin = true;
+    CUser userInfo = WidgetManager::instance().getUserInfo();
+    QString id = userInfo.getUserId();
+    QString pw = userInfo.getUserPw();
+
+    if (!user.getUserId().isEmpty() && user.getUserId() == id)
+    {
+        if (!user.getUserPw().isEmpty() && user.getUserPw() == pw)
+        {
+            isLogin = true;
+        }
+    }
 
     if (isLogin)
     {
-        WidgetManager::instance().setUserInfo(user);
         gotoCalendar();
     }
     else
     {
-        /* 사용자에게 알림 */
+        ui->idInput->setStyleSheet("border: 1.5px solid #FF3B30; background-color: #FFF2F2");
     }
 }
 

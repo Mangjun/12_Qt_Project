@@ -17,7 +17,7 @@ Signup::~Signup()
 
 void Signup::signUp(const CUser& user)
 {
-    qDebug() << QString("id: %1, pw: %2").arg(user.getUserId()).arg(user.getUserPw());
+    WidgetManager::instance().setUserInfo(user);
 }
 
 void Signup::clickedAcceptBtn()

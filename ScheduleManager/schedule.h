@@ -24,7 +24,14 @@ private:
     Ui::Schedule *ui;
     void gotoDate();
 
+signals:
+    void sendDateInfo(QDate date);
+
 private slots:
+    /* 화면 간의 통신 */
+    void receiveScheduleInfo(const CSchedule& sc);
+
+    /* 화면 이벤트 처리 */
     void back();
     void clickedDeleteBtn();
     void clickedSaveBtn();

@@ -9,6 +9,7 @@ Date::Date(QWidget *parent)
     , ui(new Ui::Date)
 {
     ui->setupUi(this);
+    connect(ui->backButton, SIGNAL(clicked(bool)), this, SLOT(back()));
 }
 
 Date::~Date()
@@ -25,6 +26,7 @@ void Date::deleteSchedule(int index)
 /* 이벤트 처리 */
 void Date::back()
 {
+    emit sendDateInfo(this->date);
     gotoCalendar();
 }
 
@@ -46,6 +48,12 @@ void Date::clickedDate()
 void Date::clickedSchedule(int index)
 {
 
+}
+
+void Date::receiveDateInfo(QDate date)
+{
+    this->date = date;
+    ui->dateDisplayButton->setText(QString("%1년 %2월 %3일").arg(date.year()).arg(date.month()).arg(date.day()));
 }
 
 /* 화면 이동 처리 */
