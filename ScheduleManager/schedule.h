@@ -18,23 +18,27 @@ class Schedule : public QWidget
 public:
     explicit Schedule(QWidget *parent = nullptr);
     ~Schedule();
-    void updateSchedule(CSchedule sc);
-    void deleteSchedule(CSchedule sc);
 
 private:
     Ui::Schedule *ui;
     CSchedule csInfo;
 
+    /* 화면 이동 */
     void gotoDate();
 
+    /* 비즈니스 로직 */
+    void updateSchedule(CSchedule sc);
+    void deleteSchedule(CSchedule sc);
+
 signals:
+    /* 다른 위젯에게 정보 보내기 */
     void sendDateInfo(QDate date);
 
 private slots:
-    /* 화면 간의 통신 */
+    /* 다른 위젯으로부터 정보 받기 */
     void receiveScheduleInfo(const CSchedule& sc);
 
-    /* 화면 이벤트 처리 */
+    /* 이벤트 처리 */
     void back();
     void clickedDeleteBtn();
     void clickedSaveBtn();

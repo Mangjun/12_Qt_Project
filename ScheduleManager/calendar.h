@@ -2,11 +2,11 @@
 #define CALENDAR_H
 
 #include <QWidget>
+#include <QListView>
 #include "widgetmanager.h"
 #include "date.h"
 #include "schedule.h"
 #include "cschedule.h"
-#include <QListView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,29 +21,33 @@ class Calendar : public QWidget
 public:
     explicit Calendar(QWidget *parent = nullptr);
     ~Calendar() override;
-    void searchSchedule(QString title);
-
-signals:
-    /* 화면 간의 통신 */
-    void sendDateInfo(QDate date);
-    void sendScheduleInfo(const CSchedule& sc);
 
 private:
     Ui::Calendar *ui;
-    QList<CSchedule> searchList;
-    QStringListModel *model;
+    QList<CSchedule> searchList;    // 검색한 일정 리스트
+    QStringListModel *model;        // ListView에 담을 정보
 
-    void updateUI();
-    void gotoDate();
-    void gotoSchedule();
+    void updateUI();        // 정보 업데이트
+
+    /* 위젯 이동 */
+    void gotoDate();        // 날짜 화면으로 이동
+    void gotoSchedule();    // 일정 화면으로 이동
+
+    /* 비즈니스 로직 */
+    void searchSchedule(QString title);     // 제목으로 일정 검색
+
+signals:
+    /* 다른 위젯에게 정보 보내기 */
+    void sendDateInfo(QDate date);
+    void sendScheduleInfo(const CSchedule& scInfo);
 
 private slots:
-    /* 화면 통신 처리 */
+    /* 다른 위젯으로부터 정보 받기 */
     void receiveDateInfo(QDate date);
 
-    void clickedSearchBtn();
-    void searchTextChanged();
-    void clickedDate(QDate date);
-    void clickedSchedule(int index);
+    /* 이벤트 처리 */
+    void clickedSearchBtn();        // 검색 버튼 클릭
+    void clickedDate(QDate date);   // 날짜 클릭
+    void clickedSchedule(int index);// 검색한 일정 클릭
 };
 #endif // CALENDAR_H

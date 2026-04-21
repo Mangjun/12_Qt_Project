@@ -18,7 +18,36 @@ Calendar::~Calendar()
     delete ui;
 }
 
-/* 로직 */
+void Calendar::updateUI()
+{
+    QTextCharFormat format;
+    format.setBackground(Qt::lightGray);
+    format.setForeground(Qt::red);
+    format.setFontWeight(QFont::Bold);
+
+    QList<QDate> list = WidgetManager::instance().getDates();
+    for (const auto& date : list)
+    {
+        ui->calendarWidget->setDateTextFormat(date, format);
+    }
+}
+
+/* 화면 이동 처리 */
+void Calendar::gotoDate()
+{
+    Date* date = WidgetManager::instance().getDate();
+    date->show();
+    this->hide();
+}
+
+void Calendar::gotoSchedule()
+{
+    Schedule* schedule = WidgetManager::instance().getSchedule();
+    schedule->show();
+    this->hide();
+}
+
+/* 비즈니스 로직 */
 void Calendar::searchSchedule(QString title)
 {
     this->searchList = WidgetManager::instance().searchSchedule(title);
@@ -32,18 +61,11 @@ void Calendar::searchSchedule(QString title)
     ui->searchResults->setModel(this->model);
 }
 
-void Calendar::updateUI()
+/* 다른 위젯으로부터 정보 받기 */
+void Calendar::receiveDateInfo(QDate date)
 {
-    QTextCharFormat format;
-    format.setBackground(Qt::lightGray);
-    format.setForeground(Qt::red);
-    format.setFontWeight(QFont::Bold);
-
-    QList<QDate> list = WidgetManager::instance().getDates();
-    for (const auto& date : list)
-    {
-        ui->calendarWidget->setDateTextFormat(date, format);
-    }
+    ui->calendarWidget->setSelectedDate(date);
+    updateUI();
 }
 
 /* 이벤트 처리 */
@@ -61,11 +83,6 @@ void Calendar::clickedSearchBtn()
     searchSchedule(ui->searchBar->text());
 }
 
-void Calendar::searchTextChanged()
-{
-
-}
-
 void Calendar::clickedDate(QDate date)
 {
     emit sendDateInfo(date);
@@ -77,23 +94,5 @@ void Calendar::clickedSchedule(int index)
 
 }
 
-void Calendar::receiveDateInfo(QDate date)
-{
-    ui->calendarWidget->setSelectedDate(date);
-    updateUI();
-}
 
-/* 화면 이동 처리 */
-void Calendar::gotoDate()
-{
-    Date* date = WidgetManager::instance().getDate();
-    date->show();
-    this->hide();
-}
 
-void Calendar::gotoSchedule()
-{
-    Schedule* schedule = WidgetManager::instance().getSchedule();
-    schedule->show();
-    this->hide();
-}

@@ -18,31 +18,23 @@ class Login : public QWidget
 public:
     explicit Login(QWidget *parent = nullptr);
     ~Login();
-    /**
-     * @brief userLogin 로그인 로직
-     * @param user 사용자가 설정한 로그인 정보
-     */
-    void userLogin(CUser user);
 
 private:
     Ui::Login *ui;
-    /**
-     * @brief gotoCalendar 캘린더 화면으로 이동
-     */
+    /* 화면 이동 */
     void gotoCalendar();
 
+    /* 비즈니스 로직 */
+    void userLogin(CUser user);
+
 signals:
+    /* 다른 위젯에게 정보 보내기 */
     void loginSuccess(QDate date);
 
 private slots:
-    /**
-     * @brief clickedLoginBtn 로그인 버튼 이벤트
-     */
-    void clickedLoginBtn();
-    /**
-     * @brief gotoSignUp 회원가입 기능 이벤트
-     */
-    void gotoSignUp();
+    /* 이벤트 처리 */
+    void clickedLoginBtn(); // 로그인 버튼 클릭
+    void gotoSignUp();      // 회원 가입 다이얼로그 켜기
 };
 
 #endif // LOGIN_H

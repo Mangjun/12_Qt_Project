@@ -6,8 +6,10 @@ AddSchedule::AddSchedule(QWidget *parent)
     , ui(new Ui::AddSchedule)
 {
     ui->setupUi(this);
-    connect(ui->addButton, SIGNAL(clicked(bool)), this, SLOT(clickedAcceptBtn()));
-    connect(ui->cancelButton, SIGNAL(clicked(bool)), this, SLOT(reject()));
+
+    /* 이벤트 연결 */
+    connect(ui->addButton, SIGNAL(clicked(bool)), this, SLOT(clickedAcceptBtn())); // 추가 버튼
+    connect(ui->cancelButton, SIGNAL(clicked(bool)), this, SLOT(reject()));        // 삭제 버튼
 }
 
 AddSchedule::~AddSchedule()
@@ -21,9 +23,9 @@ void AddSchedule::setDate(QDate date)
     ui->dateInput->setDate(date);
 }
 
-void AddSchedule::addSchedule(CSchedule& schedule)
+void AddSchedule::addSchedule(const CSchedule& scInfo)
 {
-    WidgetManager::instance().insertSchedule(schedule);
+    WidgetManager::instance().insertSchedule(scInfo);
     accept();
 }
 
@@ -33,6 +35,6 @@ void AddSchedule::clickedAcceptBtn()
     QDate date = ui->dateInput->date();
     QString details = ui->detailsInput->toPlainText();
 
-    CSchedule newSchedule(title, date, details);
-    addSchedule(newSchedule);
+    CSchedule newSc(title, date, details);
+    addSchedule(newSc);
 }

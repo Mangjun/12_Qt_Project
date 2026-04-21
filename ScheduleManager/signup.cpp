@@ -15,11 +15,13 @@ Signup::~Signup()
     delete ui;
 }
 
+/* 비즈니스 로직 */
 void Signup::signUp(const CUser& user)
 {
     WidgetManager::instance().setUserInfo(user);
 }
 
+/* 이벤트 처리 */
 void Signup::clickedAcceptBtn()
 {
     QString id = ui->idInput->text();

@@ -18,31 +18,33 @@ public:
     explicit Date(QWidget *parent = nullptr);
     ~Date();
 
+private:
+    Ui::Date *ui;
+    QDate date;                             // 날짜 정보
+    QList<CSchedule> currentSchedules;      // 현재 날짜 일정 리스트
+    QStringListModel *model;
+
+    void updateUI();
+
+    /* 화면 이동 */
+    void gotoCalendar();
+    void gotoSchedule();
+
 signals:
-    /* 화면 간의 통신 */
+    /* 다른 위젯에게 정보 보내기 */
     void sendDateInfo(QDate date);
     void sendScheduleInfo(const CSchedule& sc);
 
-private:
-    Ui::Date *ui;
-    QDate date;
-    QList<CSchedule> currentSchedules;
-    QStringListModel *model;
-
-    void gotoCalendar();
-    void gotoSchedule();
-    void updateUI();
-
 private slots:
-    /* 화면 간의 통신 */
+    /* 다른 위젯으로부터 정보 받기 */
     void receiveDateInfo(QDate date);
 
-    /* 화면 이벤트 처리 */
-    void back();
-    void left();
-    void right();
-    void clickedSchedule(const QModelIndex& index);
-    void gotoAddSchedule();
+    /* 이벤트 처리 */
+    void back();    // 뒤로 가기
+    void left();    // 전 날짜 이동
+    void right();   // 다음 날짜 이동
+    void clickedSchedule(const QModelIndex& index);     // 일정 클릭
+    void gotoAddSchedule();     // 일정 추가 다이얼로그 이동
 };
 
 #endif // DATE_H

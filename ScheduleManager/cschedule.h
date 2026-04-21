@@ -8,8 +8,6 @@ class CSchedule
 {
 private:
     int id;
-    int userId;
-
     QString title;
     QDate date;
     QString detail;
@@ -19,9 +17,6 @@ public:
 
     void setId(const int id);
     int getId() const;
-
-    void setUserId(const int userId);
-    int getUserId() const;
 
     void setTitle(const QString title);
     QString getTitle() const;

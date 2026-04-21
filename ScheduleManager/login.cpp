@@ -15,6 +15,15 @@ Login::~Login()
     delete ui;
 }
 
+/* 화면 이동 */
+void Login::gotoCalendar()
+{
+    Calendar* cal = WidgetManager::instance().getCalendar();
+    cal->show();
+    this->close();
+}
+
+/* 비즈니스 로직 */
 void Login::userLogin(CUser user)
 {
     bool isLogin = false;
@@ -42,6 +51,7 @@ void Login::userLogin(CUser user)
     }
 }
 
+/* 이벤트 처리 */
 void Login::clickedLoginBtn()
 {
     QString id = ui->idInput->text();
@@ -55,11 +65,4 @@ void Login::gotoSignUp()
 {
     Signup signup;
     signup.exec();
-}
-
-void Login::gotoCalendar()
-{
-    Calendar* cal = WidgetManager::instance().getCalendar();
-    cal->show();
-    this->close();
 }

@@ -1,7 +1,7 @@
 #include "cschedule.h"
 
 CSchedule::CSchedule() {}
-CSchedule::CSchedule(QString title, QDate date, QString detail) : id(0), userId(0), title(title), date(date), detail(detail)
+CSchedule::CSchedule(QString title, QDate date, QString detail) : id(0), title(title), date(date), detail(detail)
 {
 
 }
@@ -15,17 +15,6 @@ void CSchedule::setId(const int id)
 int CSchedule::getId() const
 {
     return this->id;
-}
-
-void CSchedule::setUserId(const int userId)
-{
-    if (id < 0) return;
-    this->userId = userId;
-}
-
-int CSchedule::getUserId() const
-{
-    return this->userId;
 }
 
 void CSchedule::setTitle(const QString title)

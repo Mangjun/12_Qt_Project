@@ -25,6 +25,7 @@ WidgetManager::WidgetManager()
     connect(schedulePtr, SIGNAL(sendDateInfo(QDate)), datePtr, SLOT(receiveDateInfo(QDate)));
 }
 
+/* 화면 반환 */
 Calendar* WidgetManager::getCalendar()
 {
     return calendarPtr;
@@ -40,6 +41,7 @@ Schedule* WidgetManager::getSchedule()
     return schedulePtr;
 }
 
+/* 유저 관리 */
 const CUser& WidgetManager::getUserInfo() const
 {
     return this->userInfo;
@@ -50,12 +52,8 @@ void WidgetManager::setUserInfo(const CUser& user)
     userInfo = user;
 }
 
-QList<QDate> WidgetManager::getDates()
-{
-    return this->cache.keys();
-}
-
-void WidgetManager::updateCache(QList<CSchedule> vcs)
+/* 일정 관리 */
+void WidgetManager::updateCache(const QList<CSchedule>& vcs)
 {
     for (const auto& schedule : vcs)
     {
@@ -65,11 +63,17 @@ void WidgetManager::updateCache(QList<CSchedule> vcs)
     }
 }
 
+QList<QDate> WidgetManager::getDates()
+{
+    return this->cache.keys();
+}
+
 QList<CSchedule> WidgetManager::getSchedules(QDate date)
 {
     return this->cache.value(date);
 }
 
+/* 일정 비즈니스 로직 */
 void WidgetManager::insertSchedule(const CSchedule& cs)
 {
     QDate date = cs.getDate();

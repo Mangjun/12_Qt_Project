@@ -16,40 +16,39 @@ class WidgetManager : public QObject
 {
     Q_OBJECT
 private:
-    /**
-     * @brief WidgetManager 싱글톤
-     */
     WidgetManager();
 
-    Login* loginPtr;
-    Calendar* calendarPtr;
-    Date* datePtr;
-    Schedule* schedulePtr;
-    CUser userInfo;
-    QMap<QDate, QList<CSchedule>> cache;
+    Login* loginPtr;                        // 로그인 화면
+    Calendar* calendarPtr;                  // 캘린더 화면
+    Date* datePtr;                          // 날짜 화면
+    Schedule* schedulePtr;                  // 일정 화면
+    CUser userInfo;                         // 유저 정보
+    QMap<QDate, QList<CSchedule>> cache;    // 일정 정보
 
-    static int scheduleNumber;
+    static int scheduleNumber;              // 일정 식별자
 
 public:
-    /**
-     * @brief 싱글톤 객체 반환
-     * @return WidgetManager 인스턴스
-     */
     static WidgetManager& instance()
     {
         static WidgetManager inst;
         return inst;
     }
 
+    /* 화면 반환 */
     Calendar* getCalendar();
     Date* getDate();
     Schedule* getSchedule();
 
+    /* 회원 관리 */
     const CUser& getUserInfo() const;
     void setUserInfo(const CUser& user);
-    void updateCache(QList<CSchedule> vcs);
+
+    /* 일정 관리 */
+    void updateCache(const QList<CSchedule>& vcs);
     QList<QDate> getDates();
     QList<CSchedule> getSchedules(QDate date);
+
+    /* 일정 비즈니스 로직 */
     void insertSchedule(const CSchedule& cs);
     void updateSchedule(CSchedule cs);
     void deleteSchedule(CSchedule cs);

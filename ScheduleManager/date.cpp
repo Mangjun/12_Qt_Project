@@ -24,6 +24,44 @@ Date::~Date()
     delete ui;
 }
 
+void Date::updateUI()
+{
+    QString dateStr = this->date.toString("yyyy년 MM월 dd일");
+    ui->dateDisplayButton->setText(dateStr);
+
+    this->currentSchedules = WidgetManager::instance().getSchedules(this->date);
+
+    QStringList titleList;
+    for(const CSchedule& s : this->currentSchedules) {
+        titleList << s.getTitle();
+    }
+
+    this->model->setStringList(titleList);
+    ui->scheduleListView->setModel(this->model);
+}
+
+/* 화면 이동 */
+void Date::gotoCalendar()
+{
+    Calendar* calendar = WidgetManager::instance().getCalendar();
+    calendar->show();
+    this->hide();
+}
+
+void Date::gotoSchedule()
+{
+    Schedule* schedule = WidgetManager::instance().getSchedule();
+    schedule->show();
+    this->hide();
+}
+
+/* 다른 위젯으로부터 정보 받기 */
+void Date::receiveDateInfo(QDate date)
+{
+    this->date = date;
+    updateUI();
+}
+
 /* 이벤트 처리 */
 void Date::back()
 {
@@ -55,29 +93,6 @@ void Date::clickedSchedule(const QModelIndex& index)
     }
 }
 
-void Date::receiveDateInfo(QDate date)
-{
-    this->date = date;
-    updateUI();
-}
-
-void Date::updateUI()
-{
-    QString dateStr = this->date.toString("yyyy년 MM월 dd일");
-    ui->dateDisplayButton->setText(dateStr);
-
-    this->currentSchedules = WidgetManager::instance().getSchedules(this->date);
-
-    QStringList titleList;
-    for(const CSchedule& s : this->currentSchedules) {
-        titleList << s.getTitle();
-    }
-
-    this->model->setStringList(titleList);
-    ui->scheduleListView->setModel(this->model);
-}
-
-/* 화면 이동 처리 */
 void Date::gotoAddSchedule()
 {
     AddSchedule addSchedule;
@@ -88,16 +103,3 @@ void Date::gotoAddSchedule()
     }
 }
 
-void Date::gotoCalendar()
-{
-    Calendar* calendar = WidgetManager::instance().getCalendar();
-    calendar->show();
-    this->hide();
-}
-
-void Date::gotoSchedule()
-{
-    Schedule* schedule = WidgetManager::instance().getSchedule();
-    schedule->show();
-    this->hide();
-}

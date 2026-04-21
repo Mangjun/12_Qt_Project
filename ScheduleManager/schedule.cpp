@@ -17,6 +17,14 @@ Schedule::~Schedule()
     delete ui;
 }
 
+/* 화면 이동 */
+void Schedule::gotoDate()
+{
+    Date* date = WidgetManager::instance().getDate();
+    date->show();
+    this->hide();
+}
+
 /* 비즈니스 로직 */
 void Schedule::updateSchedule(CSchedule sc)
 {
@@ -28,6 +36,7 @@ void Schedule::deleteSchedule(CSchedule sc)
     WidgetManager::instance().deleteSchedule(sc);
 }
 
+/* 다른 위젯으로부터 정보 받기 */
 void Schedule::receiveScheduleInfo(const CSchedule& sc)
 {
     this->csInfo = sc;
@@ -69,11 +78,4 @@ void Schedule::clickedSaveBtn()
     newCs.setId(csInfo.getId());
 
     updateSchedule(newCs);
-}
-
-void Schedule::gotoDate()
-{
-    Date* date = WidgetManager::instance().getDate();
-    date->show();
-    this->hide();
 }
