@@ -82,24 +82,6 @@
         background-color: #0051A8;
     }
 
-    /* 일정 삭제 버튼 (빨간색 - 신규 추가) */
-    QPushButton#deleteScheduleButton {
-        background-color: transparent;
-        color: #FF3B30;
-        border: 2px solid #FF3B30;
-        border-radius: 15px;
-        font-size: 16px;
-        font-weight: bold;
-        padding: 13px;
-    }
-    QPushButton#deleteScheduleButton:hover {
-        background-color: #FF3B30;
-        color: white;
-    }
-    QPushButton#deleteScheduleButton:pressed {
-        background-color: #C62828;
-    }
-
     QLabel#subTitle {
         font-size: 13px;
         color: #8E8E93;
@@ -108,91 +90,145 @@
     }
    </string>
   </property>
-
   <layout class="QVBoxLayout" name="mainLayout">
    <property name="spacing">
     <number>20</number>
    </property>
-   <property name="leftMargin"><number>40</number></property>
-   <property name="topMargin"><number>40</number></property>
-   <property name="rightMargin"><number>40</number></property>
-   <property name="bottomMargin"><number>40</number></property>
-
+   <property name="leftMargin">
+    <number>40</number>
+   </property>
+   <property name="topMargin">
+    <number>40</number>
+   </property>
+   <property name="rightMargin">
+    <number>40</number>
+   </property>
+   <property name="bottomMargin">
+    <number>40</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="topBarLayout">
      <item>
       <widget class="QPushButton" name="backButton">
-       <property name="text"><string>〈 캘린더</string></property>
-       <property name="cursor"><cursor shape="PointingHandCursor"/></property>
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>〈 캘린더</string>
+       </property>
       </widget>
      </item>
-     <item><spacer name="hSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property></spacer></item>
+     <item>
+      <spacer name="hSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </item>
-
    <item>
     <layout class="QVBoxLayout" name="headerLayout">
-     <property name="spacing"><number>10</number></property>
+     <property name="spacing">
+      <number>10</number>
+     </property>
      <item>
       <widget class="QLabel" name="subTitle">
-       <property name="text"><string>Selected Day</string></property>
-       <property name="alignment"><set>Qt::AlignCenter</set></property>
+       <property name="text">
+        <string>Selected Day</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="dateNavLayout">
-       <property name="spacing"><number>20</number></property>
-       <item><spacer name="hSpacer2"><property name="orientation"><enum>Qt::Horizontal</enum></property></spacer></item>
+       <property name="spacing">
+        <number>20</number>
+       </property>
+       <item>
+        <spacer name="hSpacer2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item>
         <widget class="QPushButton" name="prevDayButton">
-         <property name="text"><string>〈</string></property>
+         <property name="text">
+          <string>〈</string>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="dateDisplayButton">
-         <property name="text"><string>2026년 4월 20일</string></property>
+         <property name="text">
+          <string>2026년 4월 20일</string>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="nextDayButton">
-         <property name="text"><string>〉</string></property>
+         <property name="text">
+          <string>〉</string>
+         </property>
         </widget>
        </item>
-       <item><spacer name="hSpacer3"><property name="orientation"><enum>Qt::Horizontal</enum></property></spacer></item>
+       <item>
+        <spacer name="hSpacer3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </item>
     </layout>
    </item>
-
    <item>
     <widget class="QListView" name="scheduleListView">
-     <property name="cursor"><cursor shape="PointingHandCursor"/></property>
+     <property name="cursor" stdset="0">
+      <cursorShape>ArrowCursor</cursorShape>
+     </property>
     </widget>
    </item>
-
    <item>
-    <layout class="QHBoxLayout" name="bottomButtonLayout">
-     <property name="spacing"><number>15</number></property>
-     <item>
-      <widget class="QPushButton" name="deleteScheduleButton">
-       <property name="text"><string>선택 일정 삭제</string></property>
-       <property name="cursor"><cursor shape="PointingHandCursor"/></property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="addScheduleButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text"><string>+ 새로운 일정 추가</string></property>
-       <property name="cursor"><cursor shape="PointingHandCursor"/></property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QPushButton" name="addScheduleButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="cursor">
+      <cursorShape>ArrowCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>+ 새로운 일정 추가</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
+ <resources/>
+ <connections/>
 </ui>
