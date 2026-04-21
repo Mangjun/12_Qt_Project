@@ -30,6 +30,10 @@ signals:
 
 private:
     Ui::Calendar *ui;
+    QList<CSchedule> searchList;
+    QStringListModel *model;
+
+    void updateUI();
     void gotoDate();
     void gotoSchedule();
 
