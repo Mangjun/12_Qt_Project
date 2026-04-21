@@ -7,6 +7,7 @@ Schedule::Schedule(QWidget *parent)
     , ui(new Ui::Schedule)
 {
     ui->setupUi(this);
+    connect(ui->backButton, SIGNAL(clicked(bool)), this, SLOT(back()));
 }
 
 Schedule::~Schedule()
@@ -20,9 +21,22 @@ void Schedule::updateSchedule(CSchedule schedule)
 
 }
 
+void Schedule::receiveScheduleInfo(const CSchedule& sc)
+{
+    QString title = sc.getTitle();
+    QDate date = sc.getDate();
+    QString detail = sc.getDetail();
+
+    ui->titleEdit->setText(title);
+    ui->dateEdit->setDate(date);
+    ui->detailEdit->setText(detail);
+}
+
 /* 이벤트 처리 */
 void Schedule::back()
 {
+    QDate date = ui->dateEdit->date();
+    emit sendDateInfo(date);
     gotoDate();
 }
 

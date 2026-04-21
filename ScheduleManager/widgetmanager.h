@@ -2,7 +2,9 @@
 #define WIDGETMANAGER_H
 
 #include <QObject>
+#include <QVector>
 #include "cuser.h"
+#include "cschedule.h"
 
 class Calendar;
 class Date;
