@@ -6,9 +6,8 @@ Calendar::Calendar(QWidget *parent)
     , ui(new Ui::Calendar)
 {
     ui->setupUi(this);
-    connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this,SLOT(clickedDate(QDate)));
-    connect(ui->searchButton,SIGNAL(clicked(bool)),this,SLOT(clickedSearchBtn()));
-
+    connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this, SLOT(clickedDate(QDate)));
+    connect(ui->searchButton,SIGNAL(clicked(bool)),this, SLOT(clickedSearchBtn()));
 }
 
 Calendar::~Calendar()
@@ -35,6 +34,10 @@ void Calendar::clickedSearchBtn()
     ui->searchResults->raise();
 
     searchSchedule(ui->searchBar->text());
+
+    CSchedule sc("title", QDate::currentDate(), "detail");
+    emit sendScheduleInfo(sc);
+    gotoSchedule();
 }
 
 void Calendar::searchTextChanged()
@@ -44,13 +47,18 @@ void Calendar::searchTextChanged()
 
 void Calendar::clickedDate(QDate date)
 {
-    emit dateInfo(date);
+    emit sendDateInfo(date);
     gotoDate();
 }
 
 void Calendar::clickedSchedule(int index)
 {
 
+}
+
+void Calendar::receiveDateInfo(QDate date)
+{
+    ui->calendarWidget->setSelectedDate(date);
 }
 
 /* 화면 이동 처리 */
