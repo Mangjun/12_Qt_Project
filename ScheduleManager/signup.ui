@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Signup</class>
+ <widget class="QDialog" name="Signup">
+  <property name="geometry">
+  <rect>
+   <x>0</x>
+   <y>0</y>
+   <width>500</width>
+   <height>650</height>
+  </rect>
+ </property>
+ <property name="windowTitle">
+  <string>계정 생성</string>
+ </property>
+ <property name="styleSheet">
+  <string notr="true">
+   QDialog {
+       background-color: #FFFFFF;
+   }
+
+   QLabel#titleLabel {
+       font-size: 24px;
+       font-weight: bold;
+       color: #1C1C1E;
+   }
+
+   QLineEdit {
+       background-color: #F2F2F7;
+       border: 1px solid #E5E5EA;
+       border-radius: 12px;
+       padding: 12px;
+       font-size: 14px;
+       color: #1C1C1E;
+   }
+   QLineEdit:focus {
+       border: 1px solid #007AFF;
+       background-color: #FFFFFF;
+   }
+
+   /* 회원가입 버튼 */
+   QPushButton#signupButton {
+       background-color: #007AFF;
+       color: white;
+       border: none;
+       border-radius: 12px;
+       font-size: 15px;
+       font-weight: bold;
+       padding: 14px;
+   }
+   QPushButton#signupButton:pressed {
+       background-color: #0051A8;
+   }
+
+   /* 취소 버튼 */
+   QPushButton#cancelButton {
+       background-color: #E5E5EA;
+       color: #1C1C1E;
+       border: none;
+       border-radius: 12px;
+       font-size: 15px;
+       padding: 14px;
+   }
+   QPushButton#cancelButton:hover {
+       background-color: #D1D1D6;
+   }
+  </string>
+ </property>
+
+ <layout class="QVBoxLayout" name="mainLayout">
+  <property name="spacing">
+   <number>15</number>
+  </property>
+  <property name="leftMargin">
+   <number>50</number> </property>
+  <property name="topMargin">
+   <number>60</number>
+  </property>
+  <property name="rightMargin">
+   <number>50</number>
+  </property>
+  <property name="bottomMargin">
+   <number>50</number>
+  </property>
+
+  <item>
+   <widget class="QLabel" name="titleLabel">
+    <property name="text">
+     <string>새로운 계정 만들기</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </item>
+
+  <item>
+   <spacer name="vSpacer1">
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <property name="sizeType">
+     <enum>QSizePolicy::Fixed</enum>
+    </property>
+    <property name="sizeHint" stdset="0">
+     <size>
+      <width>20</width>
+      <height>30</height>
+     </size>
+    </property>
+   </spacer>
+  </item>
+
+  <item>
+   <widget class="QLineEdit" name="idInput">
+    <property name="placeholderText">
+     <string>사용할 아이디</string>
+    </property>
+   </widget>
+  </item>
+
+  <item>
+   <widget class="QLineEdit" name="pwInput">
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
+    </property>
+    <property name="placeholderText">
+     <string>비밀번호</string>
+    </property>
+   </widget>
+  </item>
+
+  <item>
+   <widget class="QLineEdit" name="pwConfirmInput">
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
+    </property>
+    <property name="placeholderText">
+     <string>비밀번호 확인</string>
+    </property>
+   </widget>
+  </item>
+
+  <item>
+   <spacer name="vSpacer2">
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <property name="sizeType">
+     <enum>QSizePolicy::Fixed</enum>
+    </property>
+    <property name="sizeHint" stdset="0">
+     <size>
+      <width>20</width>
+      <height>20</height>
+     </size>
+    </property>
+   </spacer>
+  </item>
+
+  <item>
+   <layout class="QVBoxLayout" name="buttonLayout">
+    <property name="spacing">
+     <number>10</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="signupButton">
+      <property name="text">
+       <string>회원가입 완료</string>
+      </property>
+      <property name="cursor">
+       <cursor shape="PointingHandCursor"/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="cancelButton">
+      <property name="text">
+       <string>취소</string>
+      </property>
+      <property name="cursor">
+       <cursor shape="PointingHandCursor"/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </item>
+ </layout>
+</widget>
+</ui>

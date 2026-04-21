@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Schedule</class>
+ <widget class="QWidget" name="Schedule">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>850</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QWidget#Schedule {
+        background-color: #FFFFFF;
+    }
+
+    /* 뒤로가기 버튼 */
+    QPushButton#backButton {
+        border: none;
+        background-color: transparent;
+        color: #007AFF;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    /* 제목 입력창 */
+    QLineEdit#titleEdit {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1C1C1E;
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid #F2F2F7;
+        padding: 5px;
+    }
+    QLineEdit#titleEdit:focus {
+        border-bottom: 2px solid #007AFF;
+    }
+
+    /* 날짜 수정창 (QDateEdit으로 변경) */
+    QDateEdit#dateEdit {
+        font-size: 18px;
+        font-weight: bold;
+        color: #8E8E93;
+        background-color: #F2F2F7;
+        border: 1px solid #E5E5EA;
+        border-radius: 10px;
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        min-width: 200px;
+    }
+    QDateEdit#dateEdit:focus {
+        border: 1px solid #007AFF;
+        color: #1C1C1E;
+    }
+    /* 달력 팝업 버튼 스타일 */
+    QDateEdit::drop-down {
+        border: none;
+        width: 30px;
+    }
+
+    /* 세부 사항 입력창 */
+    QTextEdit#detailEdit {
+        background-color: #F2F2F7;
+        border: 1px solid #E5E5EA;
+        border-radius: 15px;
+        padding: 20px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #1C1C1E;
+    }
+    QTextEdit#detailEdit:focus {
+        border: 1px solid #007AFF;
+        background-color: #FFFFFF;
+    }
+
+    /* 하단 저장 버튼 */
+    QPushButton#saveButton {
+        background-color: #007AFF;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 15px;
+    }
+    /* 하단 삭제 버튼 */
+    QPushButton#deleteButton {
+        background-color: transparent;
+        color: #FF3B30;
+        border: 1px solid #FF3B30;
+        border-radius: 12px;
+        font-size: 16px;
+        padding: 14px;
+    }
+    QPushButton#deleteButton:hover {
+        background-color: #FFF2F2;
+    }
+   </string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="spacing">
+    <number>25</number>
+   </property>
+   <property name="leftMargin"><number>60</number></property>
+   <property name="topMargin"><number>40</number></property>
+   <property name="rightMargin"><number>60</number></property>
+   <property name="bottomMargin"><number>40</number></property>
+
+   <item>
+    <layout class="QHBoxLayout" name="topBarLayout">
+     <item>
+      <widget class="QPushButton" name="backButton">
+       <property name="text"><string>〈 뒤로</string></property>
+      </widget>
+     </item>
+     <item><spacer name="hSpacer1"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property></spacer></item>
+     <item>
+      <widget class="QLineEdit" name="titleEdit">
+       <property name="alignment"><set>Qt::AlignmentFlag::AlignCenter</set></property>
+       <property name="placeholderText"><string>일정 제목</string></property>
+      </widget>
+     </item>
+     <item><spacer name="hSpacer2"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property></spacer></item>
+     <item>
+      <spacer name="hSpacer3">
+       <property name="sizeType"><enum>QSizePolicy::Policy::Fixed</enum></property>
+       <property name="sizeHint" stdset="0"><size><width>70</width><height>20</height></size></property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+
+   <item>
+    <layout class="QHBoxLayout" name="dateEditLayout">
+     <item><spacer name="hSpacer_L"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property></spacer></item>
+     <item>
+      <widget class="QDateEdit" name="dateEdit">
+       <property name="displayFormat">
+        <string>yyyy년 MM월 dd일</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+       <property name="date">
+        <date>
+         <year>2026</year>
+         <month>4</month>
+         <day>20</day>
+        </date>
+       </property>
+      </widget>
+     </item>
+     <item><spacer name="hSpacer_R"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property></spacer></item>
+    </layout>
+   </item>
+
+   <item>
+    <widget class="QTextEdit" name="detailEdit">
+     <property name="placeholderText"><string>일정 세부 내용을 입력하세요...</string></property>
+    </widget>
+   </item>
+
+   <item>
+    <layout class="QHBoxLayout" name="bottomButtonLayout">
+     <property name="spacing"><number>15</number></property>
+     <item>
+      <widget class="QPushButton" name="deleteButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed"><horstretch>1</horstretch><verstretch>0</verstretch></sizepolicy>
+       </property>
+       <property name="text"><string>일정 삭제</string></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed"><horstretch>2</horstretch><verstretch>0</verstretch></sizepolicy>
+       </property>
+       <property name="text"><string>변경사항 저장</string></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+</ui>
