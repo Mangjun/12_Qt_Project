@@ -21,6 +21,8 @@ Calendar::~Calendar()
 
 void Calendar::updateUI()
 {
+    ui->calendarWidget->setDateTextFormat(QDate(), QTextCharFormat());
+
     QTextCharFormat format;
     format.setBackground(Qt::lightGray);
     format.setForeground(Qt::red);
@@ -31,6 +33,8 @@ void Calendar::updateUI()
     {
         ui->calendarWidget->setDateTextFormat(date, format);
     }
+
+    ui->calendarWidget->update();
 }
 
 /* 화면 이동 처리 */
@@ -65,8 +69,8 @@ void Calendar::searchSchedule(QString title)
 /* 다른 위젯으로부터 정보 받기 */
 void Calendar::receiveDateInfo(QDate date)
 {
-    ui->calendarWidget->setSelectedDate(date);
     updateUI();
+    ui->calendarWidget->setSelectedDate(date);
 }
 
 /* 이벤트 처리 */

@@ -10,6 +10,23 @@ CUser::CUser(QString userId, QString userPw) : id(0), userId(userId), userPw(use
 
 }
 
+/* JSON */
+QJsonObject CUser::toJson() const
+{
+    QJsonObject json;
+    json["id"] = id;
+    json["userId"] = userId;
+    json["userPw"] = userPw;
+    return json;
+}
+
+void CUser::fromJson(const QJsonObject& json)
+{
+    id = json["id"].toInt();
+    userId = json["userId"].toString();
+    userPw = json["userPw"].toString();
+}
+
 void CUser::setId(const int id)
 {
     if (id < 0) return;

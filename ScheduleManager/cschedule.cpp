@@ -6,6 +6,25 @@ CSchedule::CSchedule(QString title, QDate date, QString detail) : id(0), title(t
 
 }
 
+/* JSON */
+QJsonObject CSchedule::toJson() const
+{
+    QJsonObject json;
+    json["id"] = id;
+    json["title"] = title;
+    json["date"] = date.toString(Qt::ISODate);
+    json["detail"] = detail;
+    return json;
+}
+
+void CSchedule::fromJson(const QJsonObject& json)
+{
+    id = json["id"].toInt();
+    title = json["title"].toString();
+    date = QDate::fromString(json["date"].toString(), Qt::ISODate);
+    detail = json["detail"].toString();
+}
+
 void CSchedule::setId(const int id)
 {
     if (id < 0) return;
