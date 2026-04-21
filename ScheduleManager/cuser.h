@@ -6,9 +6,9 @@
 class CUser
 {
 private:
-    int id;
-    QString userId;
-    QString userPw;
+    int id;             // 식별자
+    QString userId;     // 아이디
+    QString userPw;     // 패스워드
 public:
     CUser();
     CUser(QString userId, QString userPw);

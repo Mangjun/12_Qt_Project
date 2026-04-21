@@ -9,10 +9,10 @@
 class CSchedule
 {
 private:
-    int id;
-    QString title;
-    QDate date;
-    QString detail;
+    int id;             // 식별자
+    QString title;      // 제목
+    QDate date;         // 날짜
+    QString detail;     // 세부 사항
 public:
     CSchedule();
     CSchedule(QString title, QDate date, QString detail);

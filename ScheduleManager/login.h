@@ -4,8 +4,6 @@
 #include <QWidget>
 #include "cuser.h"
 #include "widgetmanager.h"
-#include "signup.h"
-#include "calendar.h"
 
 namespace Ui {
 class Login;
@@ -22,10 +20,17 @@ public:
 private:
     Ui::Login *ui;
     /* 화면 이동 */
+    /**
+     * @brief gotoCalendar 캘린더 화면으로 이동
+     */
     void gotoCalendar();
 
     /* 비즈니스 로직 */
-    void userLogin(CUser user);
+    /**
+     * @brief userLogin 로그인
+     * @param user      입력받은 유저 정보
+     */
+    void userLogin(const CUser& user);
 
 signals:
     /* 다른 위젯에게 정보 보내기 */

@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include <QDate>
-#include "widgetmanager.h"
 #include "cschedule.h"
 
 namespace Ui {
@@ -25,19 +24,16 @@ public:
 
 private:
     Ui::AddSchedule *ui;
-    QDate date; // 설정할 날짜
+    QDate date; // 날짜 정보
 
     /**
      * @brief addSchedule 캐시에 일정 추가
      * @param schedule 일정 정보
      */
-    void addSchedule(const CSchedule& scInfo);
+    void addSchedule(const CSchedule& sc);
 
 private slots:
-    /**
-     * @brief clickedAcceptBtn 일정 추가 버튼 클릭 이벤트
-     */
-    void clickedAcceptBtn();
+    void clickedAcceptBtn();        // 일정 추가 버튼 클릭
 };
 
 #endif // ADDSCHEDULE_H

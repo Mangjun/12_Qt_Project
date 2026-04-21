@@ -31,6 +31,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         addschedule.h addschedule.cpp addschedule.ui
         schedule.h schedule.cpp schedule.ui
         widgetmanager.h widgetmanager.cpp
+        datamanager.h
+        memorydatamanager.h memorydatamanager.cpp
+        jsondatamanager.h jsondatamanager.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ScheduleManager APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

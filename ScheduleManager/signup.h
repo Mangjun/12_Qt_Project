@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include "cuser.h"
-#include "widgetmanager.h"
 
 namespace Ui {
 class Signup;
@@ -21,12 +20,16 @@ private:
     Ui::Signup *ui;
 
     /* 비즈니스 로직 */
+    /**
+     * @brief signUp 회원 가입
+     * @param user   입력받은 유저 정보
+     */
     void signUp(const CUser& user);
 
 private slots:
     /* 이벤트 처리 */
-    void clickedAcceptBtn();
-    void clickedRejectBtn();
+    void clickedAcceptBtn();    // 회원 가입 버튼 클릭
+    void clickedRejectBtn();    // 취소 버튼 클릭
 };
 
 #endif // SIGNUP_H

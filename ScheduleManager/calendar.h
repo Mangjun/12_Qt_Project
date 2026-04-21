@@ -30,11 +30,21 @@ private:
     void updateUI();        // 정보 업데이트
 
     /* 위젯 이동 */
-    void gotoDate();        // 날짜 화면으로 이동
-    void gotoSchedule();    // 일정 화면으로 이동
+    /**
+     * @brief gotoDate 날짜 화면으로 이동
+     */
+    void gotoDate();
+    /**
+     * @brief gotoSchedule 일정 화면으로 이동
+     */
+    void gotoSchedule();
 
     /* 비즈니스 로직 */
-    void searchSchedule(QString title);     // 제목으로 일정 검색
+    /**
+     * @brief searchSchedule 일정 제목으로 검색
+     * @param title 제목
+     */
+    void searchSchedule(QString title);
 
 signals:
     /* 다른 위젯에게 정보 보내기 */
@@ -46,8 +56,8 @@ private slots:
     void receiveDateInfo(QDate date);
 
     /* 이벤트 처리 */
-    void clickedSearchBtn();        // 검색 버튼 클릭
-    void clickedDate(QDate date);   // 날짜 클릭
-    void clickedSchedule(const QModelIndex& index);// 검색한 일정 클릭
+    void clickedSearchBtn();                        // 검색 버튼 클릭
+    void clickedDate(QDate date);                   // 날짜 클릭
+    void clickedSchedule(const QModelIndex& index); // 검색한 일정 클릭
 };
 #endif // CALENDAR_H

@@ -9,9 +9,10 @@ Calendar::Calendar(QWidget *parent)
 
     this->model = new QStringListModel(this);
 
-    connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this, SLOT(clickedDate(QDate)));
-    connect(ui->searchButton,SIGNAL(clicked(bool)),this, SLOT(clickedSearchBtn()));
-    connect(ui->searchResults,SIGNAL(clicked(QModelIndex)),this,SLOT(clickedSchedule(const QModelIndex&)));
+    /* 이벤트 처리 */
+    connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this, SLOT(clickedDate(QDate)));                          // 날짜 클릭
+    connect(ui->searchButton,SIGNAL(clicked(bool)),this, SLOT(clickedSearchBtn()));                             // 검색 버튼 클릭
+    connect(ui->searchResults,SIGNAL(clicked(QModelIndex)),this,SLOT(clickedSchedule(const QModelIndex&)));     // 일정 클릭
 }
 
 Calendar::~Calendar()
@@ -21,7 +22,7 @@ Calendar::~Calendar()
 
 void Calendar::updateUI()
 {
-    ui->calendarWidget->setDateTextFormat(QDate(), QTextCharFormat());
+    ui->calendarWidget->setDateTextFormat(QDate(), QTextCharFormat()); // 달력 초기화 -> 동작 안함
 
     QTextCharFormat format;
     format.setBackground(Qt::lightGray);
@@ -59,7 +60,7 @@ void Calendar::searchSchedule(QString title)
 
     QStringList titleList;
     for(const CSchedule& s : this->searchList) {
-        titleList << s.getTitle();
+        titleList << QString("%1 [%2]").arg(s.getDate().toString("yyyy-MM-dd")).arg(s.getTitle());
     }
 
     this->model->setStringList(titleList);

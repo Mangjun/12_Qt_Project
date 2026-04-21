@@ -27,7 +27,13 @@ private:
     void updateUI();
 
     /* 화면 이동 */
+    /**
+     * @brief gotoCalendar 캘린더 화면으로 이동
+     */
     void gotoCalendar();
+    /**
+     * @brief gotoSchedule 일정 화면으로 이동
+     */
     void gotoSchedule();
 
 signals:
@@ -40,11 +46,11 @@ private slots:
     void receiveDateInfo(QDate date);
 
     /* 이벤트 처리 */
-    void back();    // 뒤로 가기
-    void left();    // 전 날짜 이동
-    void right();   // 다음 날짜 이동
+    void back();                                        // 뒤로 가기
+    void left();                                        // 전 날짜 이동
+    void right();                                       // 다음 날짜 이동
     void clickedSchedule(const QModelIndex& index);     // 일정 클릭
-    void gotoAddSchedule();     // 일정 추가 다이얼로그 이동
+    void gotoAddSchedule();                             // 일정 추가 다이얼로그 이동
 };
 
 #endif // DATE_H

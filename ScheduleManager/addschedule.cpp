@@ -1,5 +1,6 @@
 #include "addschedule.h"
 #include "ui_addschedule.h"
+#include "widgetmanager.h"
 
 AddSchedule::AddSchedule(QWidget *parent)
     : QDialog(parent)
@@ -23,9 +24,9 @@ void AddSchedule::setDate(QDate date)
     ui->dateInput->setDate(date);
 }
 
-void AddSchedule::addSchedule(const CSchedule& scInfo)
+void AddSchedule::addSchedule(const CSchedule& sc)
 {
-    WidgetManager::instance().insertSchedule(scInfo);
+    WidgetManager::instance().insertSchedule(sc);
     accept();
 }
 

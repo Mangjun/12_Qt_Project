@@ -7,9 +7,11 @@ Schedule::Schedule(QWidget *parent)
     , ui(new Ui::Schedule)
 {
     ui->setupUi(this);
-    connect(ui->backButton, SIGNAL(clicked(bool)), this, SLOT(back()));
-    connect(ui->deleteButton, SIGNAL(clicked(bool)), this, SLOT(clickedDeleteBtn()));
-    connect(ui->saveButton, SIGNAL(clicked(bool)), this, SLOT(clickedSaveBtn()));
+
+    /* 이벤트 처리 */
+    connect(ui->backButton, SIGNAL(clicked(bool)), this, SLOT(back()));                     // 뒤로 가기 버튼 클릭
+    connect(ui->deleteButton, SIGNAL(clicked(bool)), this, SLOT(clickedDeleteBtn()));       // 삭제 버튼 클릭
+    connect(ui->saveButton, SIGNAL(clicked(bool)), this, SLOT(clickedSaveBtn()));           // 수정 버튼 클릭
 }
 
 Schedule::~Schedule()
@@ -33,7 +35,7 @@ void Schedule::updateSchedule(const CSchedule& sc)
 
 void Schedule::deleteSchedule(const CSchedule& sc)
 {
-    WidgetManager::instance().deleteSchedule(sc);
+    WidgetManager::instance().deleteSchedule(sc.getId());
 }
 
 /* 다른 위젯으로부터 정보 받기 */

@@ -3,26 +3,30 @@
 #include "date.h"
 #include "schedule.h"
 #include "login.h"
-
-int WidgetManager::scheduleNumber = 1;
+#include "datamanager.h"
+#include "jsondatamanager.h"
+// #include "memorydatamanager.h"
 
 WidgetManager::WidgetManager()
 {
+    dataManager = new JsonDataManager();
+
     loginPtr = new Login();
     calendarPtr = new Calendar();
     datePtr = new Date();
     schedulePtr = new Schedule();
 
     /* 화면 통신 처리 */
-    connect(loginPtr, SIGNAL(loginSuccess(QDate)), calendarPtr, SLOT(receiveDateInfo(QDate)));
+    connect(loginPtr, SIGNAL(loginSuccess(QDate)), calendarPtr, SLOT(receiveDateInfo(QDate)));                                      // 로그인 -> 캘린더
+    connect(calendarPtr, SIGNAL(sendDateInfo(QDate)), datePtr, SLOT(receiveDateInfo(QDate)));                                       // 캘린더 -> 날짜
+    connect(calendarPtr, SIGNAL(sendScheduleInfo(const CSchedule&)), schedulePtr, SLOT(receiveScheduleInfo(const CSchedule&)));     // 캘린더 -> 일정
+    connect(datePtr, SIGNAL(sendScheduleInfo(const CSchedule&)), schedulePtr, SLOT(receiveScheduleInfo(const CSchedule&)));         // 날짜 -> 일정
+    connect(datePtr, SIGNAL(sendDateInfo(QDate)), calendarPtr, SLOT(receiveDateInfo(QDate)));                                       // 날짜 -> 캘린더
+    connect(schedulePtr, SIGNAL(sendDateInfo(QDate)), datePtr, SLOT(receiveDateInfo(QDate)));                                       // 일정 -> 날짜
+}
 
-    connect(calendarPtr, SIGNAL(sendDateInfo(QDate)), datePtr, SLOT(receiveDateInfo(QDate)));
-    connect(calendarPtr, SIGNAL(sendScheduleInfo(const CSchedule&)), schedulePtr, SLOT(receiveScheduleInfo(const CSchedule&)));
-
-    connect(datePtr, SIGNAL(sendScheduleInfo(const CSchedule&)), schedulePtr, SLOT(receiveScheduleInfo(const CSchedule&)));
-    connect(datePtr, SIGNAL(sendDateInfo(QDate)), calendarPtr, SLOT(receiveDateInfo(QDate)));
-
-    connect(schedulePtr, SIGNAL(sendDateInfo(QDate)), datePtr, SLOT(receiveDateInfo(QDate)));
+WidgetManager::~WidgetManager() {
+    delete dataManager;
 }
 
 /* 화면 반환 */
@@ -41,7 +45,7 @@ Schedule* WidgetManager::getSchedule()
     return schedulePtr;
 }
 
-/* 유저 관리 */
+/* 유저 관리 및 인증 */
 const CUser& WidgetManager::getUserInfo() const
 {
     return this->userInfo;
@@ -52,39 +56,29 @@ void WidgetManager::setUserInfo(const CUser& user)
     userInfo = user;
 }
 
+bool WidgetManager::login(const CUser& user)
+{
+    CUser authenticatedUser;
+    if (dataManager->login(user, authenticatedUser))
+    {
+        this->userInfo = authenticatedUser;
+        loadSchedules();
+        return true;
+    }
+    return false;
+}
+
+bool WidgetManager::signUp(const CUser& user)
+{
+    return dataManager->signUp(user);
+}
+
 /* 일정 관리 */
-void WidgetManager::loadSchedulesFromDisk()
+void WidgetManager::loadSchedules()
 {
     this->cache.clear();
-    this->scheduleNumber = 1;
 
-    QString userPath = getBasePath() + "/" + QString::number(userInfo.getId());
-    QString filePath = userPath + "/meta_schedule.json";
-
-    QFile file(filePath);
-
-    if (!file.exists()) {
-        return;
-    }
-
-    if (file.open(QIODevice::ReadOnly)) {
-        QByteArray data = file.readAll();
-        file.close();
-
-        QJsonObject root = QJsonDocument::fromJson(data).object();
-
-        this->scheduleNumber = root["totalScheduleCount"].toInt() + 1;
-
-        QJsonArray scheduleArray = root["schedules"].toArray();
-        for (const QJsonValue& val : scheduleArray) {
-            QJsonObject scObj = val.toObject();
-
-            CSchedule sc;
-            sc.fromJson(scObj);
-
-            this->cache[sc.getDate()].append(sc);
-        }
-    }
+    dataManager->loadSchedules(userInfo.getId(), this->cache);
 }
 
 QList<QDate> WidgetManager::getDates()
@@ -98,102 +92,53 @@ QList<CSchedule> WidgetManager::getSchedules(QDate date)
 }
 
 /* 일정 비즈니스 로직 */
-void WidgetManager::insertSchedule(const CSchedule& cs)
+void WidgetManager::insertSchedule(const CSchedule& sc)
 {
-    QDate date = cs.getDate();
-    int userId = userInfo.getId();
-    QString userPath = getBasePath() + "/" + QString::number(userId);
-    QString filePath = userPath + "/meta_schedule.json";
+    int newId = dataManager->insertSchedule(userInfo.getId(), sc);
 
-    QDir dir;
-    if (!dir.exists(userPath)) {
-        dir.mkpath(userPath);
-    }
-
-    QFile file(filePath);
-    QJsonObject root;
-    QJsonArray scheduleArray;
-    int lastId = 0;
-
-    if (file.exists() && file.open(QIODevice::ReadOnly)) {
-        root = QJsonDocument::fromJson(file.readAll()).object();
-        scheduleArray = root["schedules"].toArray();
-        lastId = root["totalScheduleCount"].toInt();
-        file.close();
-    }
-
-    CSchedule newCs = cs;
-    int currentId = lastId + 1;
-    newCs.setId(currentId);
-
-    this->scheduleNumber = currentId + 1;
-
-    this->cache[date].append(newCs);
-
-    scheduleArray.append(newCs.toJson());
-    root["totalScheduleCount"] = currentId;
-    root["schedules"] = scheduleArray;
-
-    if (file.open(QIODevice::WriteOnly)) {
-        file.write(QJsonDocument(root).toJson());
-        file.close();
-    }
-}
-
-void WidgetManager::updateSchedule(CSchedule cs)
-{
-    QDate date = cs.getDate();
-    QList<CSchedule>& list = this->cache[date];
-
-    for (auto& oldSc : list)
+    if (newId != -1)
     {
-        if (oldSc.getId() == cs.getId())
-        {
-            oldSc = cs;
-            break;
-        }
+        CSchedule newSc = sc;
+        newSc.setId(newId);
+        this->cache[newSc.getDate()].append(newSc);
     }
 }
 
-void WidgetManager::deleteSchedule(CSchedule cs)
+void WidgetManager::updateSchedule(const CSchedule& sc)
 {
-    QDate date = cs.getDate();
-    if (this->cache.contains(date)) {
-        QList<CSchedule>& list = this->cache[date];
-        for (int i = 0; i < list.size(); ++i) {
-            if (list[i].getId() == cs.getId()) {
-                list.removeAt(i);
+    if (dataManager->updateSchedule(userInfo.getId(), sc))
+    {
+        QList<CSchedule>& list = this->cache[sc.getDate()];
+        for (auto& item : list)
+        {
+            if (item.getId() == sc.getId()) {
+                item = sc;
                 break;
             }
         }
-
-        if (list.isEmpty()) {
-            this->cache.remove(date);
-        }
     }
+}
 
-    QString userPath = getBasePath() + "/" + QString::number(userInfo.getId());
-    QString filePath = userPath + "/meta_schedule.json";
-    QFile file(filePath);
-
-    if (file.open(QIODevice::ReadOnly)) {
-        QJsonObject root = QJsonDocument::fromJson(file.readAll()).object();
-        file.close();
-
-        QJsonArray oldArray = root["schedules"].toArray();
-        QJsonArray newArray;
-
-        for (const QJsonValue& val : oldArray) {
-            if (val.toObject()["id"].toInt() != cs.getId()) {
-                newArray.append(val);
+void WidgetManager::deleteSchedule(int scheduleId)
+{
+    if (dataManager->deleteSchedule(userInfo.getId(), scheduleId))
+    {
+        for (auto it = cache.begin(); it != cache.end(); it++)
+        {
+            QList<CSchedule>& list = it.value();
+            for (int i = 0; i < list.size(); i++)
+            {
+                if (list[i].getId() == scheduleId)
+                {
+                    list.removeAt(i);
+                    // 비어있으면 없애기 -> 캘린더 화면 처리
+                    if (list.isEmpty())
+                    {
+                        cache.erase(it);
+                    }
+                    return;
+                }
             }
-        }
-
-        root["schedules"] = newArray;
-
-        if (file.open(QIODevice::WriteOnly)) {
-            file.write(QJsonDocument(root).toJson());
-            file.close();
         }
     }
 }
@@ -201,16 +146,15 @@ void WidgetManager::deleteSchedule(CSchedule cs)
 QList<CSchedule> WidgetManager::searchSchedule(QString title)
 {
     QList<CSchedule> temp;
-
-    for (const auto& date : cache.keys())
+    for (const auto& list : cache.values())
     {
-        for (const auto& sc : cache.value(date))
+        for (const auto& sc : list)
         {
-            if (sc.getTitle().contains(title, Qt::CaseInsensitive)) {
+            if (sc.getTitle().contains(title, Qt::CaseInsensitive))
+            {
                 temp.append(sc);
             }
         }
     }
-
     return temp;
 }
