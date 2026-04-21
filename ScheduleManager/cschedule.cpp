@@ -1,7 +1,7 @@
 #include "cschedule.h"
 
 CSchedule::CSchedule() {}
-CSchedule::CSchedule(QString title, QDateTime date, QString detail) : id(0), userId(0), title(title), date(date), detail(detail)
+CSchedule::CSchedule(QString title, QDate date, QString detail) : id(0), userId(0), title(title), date(date), detail(detail)
 {
 
 }
@@ -39,12 +39,12 @@ QString CSchedule::getTitle() const
     return this->title;
 }
 
-void CSchedule::setDate(const QDateTime date)
+void CSchedule::setDate(const QDate date)
 {
     this->date = date;
 }
 
-QDateTime CSchedule::getDate() const
+QDate CSchedule::getDate() const
 {
     return this->date;
 }

@@ -2,6 +2,7 @@
 #include "ui_date.h"
 #include "calendar.h"
 #include "schedule.h"
+#include "addschedule.h"
 
 Date::Date(QWidget *parent)
     : QWidget(parent)
@@ -24,12 +25,11 @@ void Date::deleteSchedule(int index)
 /* 이벤트 처리 */
 void Date::back()
 {
-
+    gotoCalendar();
 }
 
 void Date::left()
 {
-
 
 }
 
@@ -51,7 +51,8 @@ void Date::clickedSchedule(int index)
 /* 화면 이동 처리 */
 void Date::gotoAddSchedule()
 {
-
+    AddSchedule addSchedule;
+    addSchedule.exec();
 }
 
 void Date::gotoCalendar()

@@ -2,6 +2,8 @@
 #define ADDSCHEDULE_H
 
 #include <QDialog>
+#include "cschedule.h"
+#include "QDate"
 
 namespace Ui {
 class AddSchedule;
@@ -17,6 +19,10 @@ public:
 
 private:
     Ui::AddSchedule *ui;
+    void addSchedule(const CSchedule& schedule);
+
+private slots:
+    void clickedAcceptBtn();
 };
 
 #endif // ADDSCHEDULE_H
