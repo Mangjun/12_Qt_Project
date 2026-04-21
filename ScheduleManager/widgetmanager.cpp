@@ -2,16 +2,20 @@
 #include "calendar.h"
 #include "date.h"
 #include "schedule.h"
+#include "login.h"
 
 int WidgetManager::scheduleNumber = 1;
 
 WidgetManager::WidgetManager()
 {
+    loginPtr = new Login();
     calendarPtr = new Calendar();
     datePtr = new Date();
     schedulePtr = new Schedule();
 
     /* 화면 통신 처리 */
+    connect(loginPtr, SIGNAL(loginSuccess(QDate)), calendarPtr, SLOT(receiveDateInfo(QDate)));
+
     connect(calendarPtr, SIGNAL(sendDateInfo(QDate)), datePtr, SLOT(receiveDateInfo(QDate)));
     connect(calendarPtr, SIGNAL(sendScheduleInfo(const CSchedule&)), schedulePtr, SLOT(receiveScheduleInfo(const CSchedule&)));
 
@@ -44,6 +48,11 @@ const CUser& WidgetManager::getUserInfo() const
 void WidgetManager::setUserInfo(const CUser& user)
 {
     userInfo = user;
+}
+
+QList<QDate> WidgetManager::getDates()
+{
+    return this->cache.keys();
 }
 
 void WidgetManager::updateCache(QList<CSchedule> vcs)

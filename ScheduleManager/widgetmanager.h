@@ -7,6 +7,7 @@
 #include "cuser.h"
 #include "cschedule.h"
 
+class Login;
 class Calendar;
 class Date;
 class Schedule;
@@ -20,6 +21,7 @@ private:
      */
     WidgetManager();
 
+    Login* loginPtr;
     Calendar* calendarPtr;
     Date* datePtr;
     Schedule* schedulePtr;
@@ -46,6 +48,7 @@ public:
     const CUser& getUserInfo() const;
     void setUserInfo(const CUser& user);
     void updateCache(QList<CSchedule> vcs);
+    QList<QDate> getDates();
     QList<CSchedule> getSchedules(QDate date);
     void insertSchedule(const CSchedule& cs);
     void updateSchedule(CSchedule cs);

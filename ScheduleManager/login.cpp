@@ -33,6 +33,7 @@ void Login::userLogin(CUser user)
 
     if (isLogin)
     {
+        emit loginSuccess(QDate::currentDate());
         gotoCalendar();
     }
     else
