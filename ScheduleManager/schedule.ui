@@ -12,81 +12,72 @@
   </property>
   <property name="styleSheet">
    <string notr="true">
-   QWidget#scheduleDetail {
-       background-color: #FFFFFF;
-   }
+    QWidget#scheduleDetail {
+        background-color: #FFFFFF;
+    }
 
-   /* 뒤로가기 버튼 */
-   QPushButton#backButton {
-       border: none;
-       background-color: transparent;
-       color: #007AFF;
-       font-size: 16px;
-       font-weight: bold;
-   }
+    /* 뒤로가기 버튼 */
+    QPushButton#backButton {
+        border: none;
+        background-color: transparent;
+        color: #007AFF;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-   /* 상단 타이틀 및 이동 버튼 */
-   QLabel#titleLabel {
-       font-size: 24px;
-       font-weight: bold;
-       color: #1C1C1E;
-   }
-   QPushButton#navButton {
-       border: none;
-       background-color: #F2F2F7;
-       border-radius: 15px;
-       color: #1C1C1E;
-       font-weight: bold;
-       min-width: 30px;
-       min-height: 30px;
-   }
+    /* 상단 타이틀 */
+    QLabel#titleLabel {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1C1C1E;
+    }
 
-   /* 날짜 표시 */
-   QLabel#dateLabel {
-       font-size: 16px;
-       color: #8E8E93;
-       margin-bottom: 10px;
-   }
+    /* 날짜 표시 */
+    QLabel#dateLabel {
+        font-size: 16px;
+        color: #8E8E93;
+        margin-bottom: 10px;
+    }
 
-   /* 세부 사항 입력창 */
-   QTextEdit#detailEdit {
-       background-color: #F2F2F7;
-       border: 1px solid #E5E5EA;
-       border-radius: 15px;
-       padding: 20px;
-       font-size: 16px;
-       line-height: 1.5;
-       color: #1C1C1E;
-   }
-   QTextEdit#detailEdit:focus {
-       border: 1px solid #007AFF;
-       background-color: #FFFFFF;
-   }
+    /* 세부 사항 입력창 */
+    QTextEdit#detailEdit {
+        background-color: #F2F2F7;
+        border: 1px solid #E5E5EA;
+        border-radius: 15px;
+        padding: 20px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #1C1C1E;
+    }
+    QTextEdit#detailEdit:focus {
+        border: 1px solid #007AFF;
+        background-color: #FFFFFF;
+    }
 
-   /* 하단 저장 버튼 */
-   QPushButton#saveButton {
-       background-color: #007AFF;
-       color: white;
-       border: none;
-       border-radius: 12px;
-       font-size: 16px;
-       font-weight: bold;
-       padding: 15px;
-   }
+    /* 하단 저장 버튼 */
+    QPushButton#saveButton {
+        background-color: #007AFF;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 15px;
+    }
 
-   /* 하단 삭제 버튼 */
-   QPushButton#deleteButton {
-       background-color: transparent;
-       color: #FF3B30; /* 애플 시스템 레드 */
-       border: 1px solid #FF3B30;
-       border-radius: 12px;
-       font-size: 16px;
-       padding: 14px;
-   }
-   QPushButton#deleteButton:hover {
-       background-color: #FFF2F2;
-   }
-  </string>
+    /* 하단 삭제 버튼 */
+    QPushButton#deleteButton {
+        background-color: transparent;
+        color: #FF3B30;
+        border: 1px solid #FF3B30;
+        border-radius: 12px;
+        font-size: 16px;
+        padding: 14px;
+    }
+    QPushButton#deleteButton:hover {
+        background-color: #FFF2F2;
+    }
+   </string>
   </property>
   <layout class="QVBoxLayout" name="mainLayout">
    <property name="spacing">
@@ -108,9 +99,6 @@
     <layout class="QHBoxLayout" name="topBarLayout">
      <item>
       <widget class="QPushButton" name="backButton">
-       <property name="cursor">
-        <cursorShape>ArrowCursor</cursorShape>
-       </property>
        <property name="text">
         <string>〈 뒤로</string>
        </property>
@@ -121,55 +109,22 @@
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="titleNavLayout">
-       <property name="spacing">
-        <number>15</number>
+      <widget class="QLabel" name="titleLabel">
+       <property name="text">
+        <string>제목</string>
        </property>
-       <item>
-        <widget class="QPushButton" name="navButton">
-         <property name="text">
-          <string>〈</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="titleLabel">
-         <property name="text">
-          <string>제목</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="navButton">
-         <property name="text">
-          <string>〉</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="hSpacer2">
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
        </property>
       </spacer>
      </item>
@@ -183,7 +138,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>50</width>
+         <width>70</width>
          <height>20</height>
         </size>
        </property>
@@ -203,21 +158,6 @@
    </item>
    <item>
     <widget class="QTextEdit" name="detailEdit">
-     <property name="markdown">
-      <string>상세 내용
-
-</string>
-     </property>
-     <property name="html">
-      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'맑은 고딕'; font-size:16px; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;상세 내용&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
      <property name="placeholderText">
       <string>일정 세부 내용을 입력하세요...</string>
      </property>
@@ -236,9 +176,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="cursor">
-        <cursorShape>ArrowCursor</cursorShape>
-       </property>
        <property name="text">
         <string>일정 삭제</string>
        </property>
@@ -251,9 +188,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <horstretch>2</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
-       </property>
-       <property name="cursor">
-        <cursorShape>ArrowCursor</cursorShape>
        </property>
        <property name="text">
         <string>변경사항 저장</string>
