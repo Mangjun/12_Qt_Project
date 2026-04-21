@@ -5,6 +5,7 @@
 #include "widgetmanager.h"
 #include "date.h"
 #include "schedule.h"
+#include <QListView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,7 +23,7 @@ public:
     void searchSchedule(QString title);
 
 signals:
-    void dateInfo();
+    void dateInfo(QDate date);
     void scheduleInfo(const Schedule& schedule);
 
 private:
@@ -31,8 +32,9 @@ private:
     void gotoSchedule();
 
 private slots:
+    void clickedSearchBtn();
     void searchTextChanged();
-    void clickedDate();
+    void clickedDate(QDate date);
     void clickedSchedule(int index);
 };
 #endif // CALENDAR_H

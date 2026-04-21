@@ -6,6 +6,9 @@ Calendar::Calendar(QWidget *parent)
     , ui(new Ui::Calendar)
 {
     ui->setupUi(this);
+    connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this,SLOT(clickedDate(QDate)));
+    connect(ui->searchButton,SIGNAL(clicked(bool)),this,SLOT(clickedSearchBtn()));
+
 }
 
 Calendar::~Calendar()
@@ -16,7 +19,22 @@ Calendar::~Calendar()
 /* 로직 */
 void Calendar::searchSchedule(QString title)
 {
+//리스트 뷰
+}
 
+/* 이벤트 처리 */
+void Calendar::clickedSearchBtn()
+{
+    if(ui->searchBar->text().isEmpty())
+    {
+        ui->searchResults->hide();
+        return;
+    }
+    ui->searchResults->show();
+    ui->searchResults->setParent(this);
+    ui->searchResults->raise();
+
+    searchSchedule(ui->searchBar->text());
 }
 
 void Calendar::searchTextChanged()
@@ -24,10 +42,10 @@ void Calendar::searchTextChanged()
 
 }
 
-/* 이벤트 처리 */
-void Calendar::clickedDate()
+void Calendar::clickedDate(QDate date)
 {
-
+    emit dateInfo(date);
+    gotoDate();
 }
 
 void Calendar::clickedSchedule(int index)
