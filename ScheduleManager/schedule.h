@@ -26,8 +26,6 @@ private:
 
 private slots:
     void back();
-    void left();
-    void right();
     void clickedDeleteBtn();
     void clickedSaveBtn();
 };

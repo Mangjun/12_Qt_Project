@@ -2,7 +2,7 @@
 #define CSCHEDULE_H
 
 #include <QString>
-#include <QDateTime>
+#include <QDate>
 
 class CSchedule
 {
@@ -11,11 +11,11 @@ private:
     int userId;
 
     QString title;
-    QDateTime date;
+    QDate date;
     QString detail;
 public:
     CSchedule();
-    CSchedule(QString title, QDateTime date, QString detail);
+    CSchedule(QString title, QDate date, QString detail);
 
     void setId(const int id);
     int getId() const;
@@ -26,8 +26,8 @@ public:
     void setTitle(const QString title);
     QString getTitle() const;
 
-    void setDate(const QDateTime date);
-    QDateTime getDate() const;
+    void setDate(const QDate date);
+    QDate getDate() const;
 
     void setDetail(const QString detail);
     QString getDetail() const;

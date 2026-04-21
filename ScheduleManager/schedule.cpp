@@ -20,16 +20,6 @@ void Schedule::updateSchedule(CSchedule schedule)
 
 }
 
-void Schedule::left()
-{
-
-}
-
-void Schedule::right()
-{
-
-}
-
 /* 이벤트 처리 */
 void Schedule::back()
 {
