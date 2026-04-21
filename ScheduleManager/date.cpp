@@ -10,6 +10,7 @@ Date::Date(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->backButton, SIGNAL(clicked(bool)), this, SLOT(back()));
+    connect(ui->addScheduleButton, SIGNAL(clicked(bool)), this, SLOT(gotoAddSchedule()));
 }
 
 Date::~Date()
