@@ -61,11 +61,14 @@ QList<CSchedule> WidgetManager::getSchedules(QDate date)
     return this->cache.value(date);
 }
 
-void WidgetManager::insertSchedule(CSchedule& cs)
+void WidgetManager::insertSchedule(const CSchedule& cs)
 {
     QDate date = cs.getDate();
-    cs.setId(scheduleNumber++);
-    this->cache[date].append(cs);
+
+    CSchedule newCs = cs;
+    newCs.setId(scheduleNumber++);
+
+    this->cache[date].append(newCs);
 }
 
 void WidgetManager::updateSchedule(CSchedule cs)

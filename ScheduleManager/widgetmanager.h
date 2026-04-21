@@ -47,7 +47,7 @@ public:
     void setUserInfo(const CUser& user);
     void updateCache(QList<CSchedule> vcs);
     QList<CSchedule> getSchedules(QDate date);
-    void insertSchedule(CSchedule& cs);
+    void insertSchedule(const CSchedule& cs);
     void updateSchedule(CSchedule cs);
     void deleteSchedule(CSchedule cs);
     QList<CSchedule> searchSchedule(QString title);
