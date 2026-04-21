@@ -26,12 +26,12 @@ void Schedule::gotoDate()
 }
 
 /* 비즈니스 로직 */
-void Schedule::updateSchedule(CSchedule sc)
+void Schedule::updateSchedule(const CSchedule& sc)
 {
     WidgetManager::instance().updateSchedule(sc);
 }
 
-void Schedule::deleteSchedule(CSchedule sc)
+void Schedule::deleteSchedule(const CSchedule& sc)
 {
     WidgetManager::instance().deleteSchedule(sc);
 }

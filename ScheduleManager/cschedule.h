@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QDate>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 class CSchedule
 {
@@ -14,6 +16,10 @@ private:
 public:
     CSchedule();
     CSchedule(QString title, QDate date, QString detail);
+
+    /* JSON */
+    QJsonObject toJson() const;
+    void fromJson(const QJsonObject& json);
 
     void setId(const int id);
     int getId() const;

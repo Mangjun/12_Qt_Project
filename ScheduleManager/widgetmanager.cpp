@@ -53,13 +53,37 @@ void WidgetManager::setUserInfo(const CUser& user)
 }
 
 /* 일정 관리 */
-void WidgetManager::updateCache(const QList<CSchedule>& vcs)
+void WidgetManager::loadSchedulesFromDisk()
 {
-    for (const auto& schedule : vcs)
-    {
-        QDate date = schedule.getDate();
+    this->cache.clear();
+    this->scheduleNumber = 1;
 
-        this->cache[date].append(schedule);
+    QString userPath = getBasePath() + "/" + QString::number(userInfo.getId());
+    QString filePath = userPath + "/meta_schedule.json";
+
+    QFile file(filePath);
+
+    if (!file.exists()) {
+        return;
+    }
+
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray data = file.readAll();
+        file.close();
+
+        QJsonObject root = QJsonDocument::fromJson(data).object();
+
+        this->scheduleNumber = root["totalScheduleCount"].toInt() + 1;
+
+        QJsonArray scheduleArray = root["schedules"].toArray();
+        for (const QJsonValue& val : scheduleArray) {
+            QJsonObject scObj = val.toObject();
+
+            CSchedule sc;
+            sc.fromJson(scObj);
+
+            this->cache[sc.getDate()].append(sc);
+        }
     }
 }
 
@@ -77,11 +101,43 @@ QList<CSchedule> WidgetManager::getSchedules(QDate date)
 void WidgetManager::insertSchedule(const CSchedule& cs)
 {
     QDate date = cs.getDate();
+    int userId = userInfo.getId();
+    QString userPath = getBasePath() + "/" + QString::number(userId);
+    QString filePath = userPath + "/meta_schedule.json";
+
+    QDir dir;
+    if (!dir.exists(userPath)) {
+        dir.mkpath(userPath);
+    }
+
+    QFile file(filePath);
+    QJsonObject root;
+    QJsonArray scheduleArray;
+    int lastId = 0;
+
+    if (file.exists() && file.open(QIODevice::ReadOnly)) {
+        root = QJsonDocument::fromJson(file.readAll()).object();
+        scheduleArray = root["schedules"].toArray();
+        lastId = root["totalScheduleCount"].toInt();
+        file.close();
+    }
 
     CSchedule newCs = cs;
-    newCs.setId(scheduleNumber++);
+    int currentId = lastId + 1;
+    newCs.setId(currentId);
+
+    this->scheduleNumber = currentId + 1;
 
     this->cache[date].append(newCs);
+
+    scheduleArray.append(newCs.toJson());
+    root["totalScheduleCount"] = currentId;
+    root["schedules"] = scheduleArray;
+
+    if (file.open(QIODevice::WriteOnly)) {
+        file.write(QJsonDocument(root).toJson());
+        file.close();
+    }
 }
 
 void WidgetManager::updateSchedule(CSchedule cs)
@@ -102,20 +158,43 @@ void WidgetManager::updateSchedule(CSchedule cs)
 void WidgetManager::deleteSchedule(CSchedule cs)
 {
     QDate date = cs.getDate();
-    QList<CSchedule>& list = this->cache[date];
+    if (this->cache.contains(date)) {
+        QList<CSchedule>& list = this->cache[date];
+        for (int i = 0; i < list.size(); ++i) {
+            if (list[i].getId() == cs.getId()) {
+                list.removeAt(i);
+                break;
+            }
+        }
 
-    int i = 0;
-    for (auto& oldSc : list)
-    {
-        if (oldSc.getId() == cs.getId())
-        {
-            list.removeAt(i);
-            break;
+        if (list.isEmpty()) {
+            this->cache.remove(date);
         }
     }
 
-    if (list.isEmpty()) {
-        this->cache.remove(date);
+    QString userPath = getBasePath() + "/" + QString::number(userInfo.getId());
+    QString filePath = userPath + "/meta_schedule.json";
+    QFile file(filePath);
+
+    if (file.open(QIODevice::ReadOnly)) {
+        QJsonObject root = QJsonDocument::fromJson(file.readAll()).object();
+        file.close();
+
+        QJsonArray oldArray = root["schedules"].toArray();
+        QJsonArray newArray;
+
+        for (const QJsonValue& val : oldArray) {
+            if (val.toObject()["id"].toInt() != cs.getId()) {
+                newArray.append(val);
+            }
+        }
+
+        root["schedules"] = newArray;
+
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(QJsonDocument(root).toJson());
+            file.close();
+        }
     }
 }
 
@@ -127,7 +206,7 @@ QList<CSchedule> WidgetManager::searchSchedule(QString title)
     {
         for (const auto& sc : cache.value(date))
         {
-            if (sc.getTitle().contains(title)) {
+            if (sc.getTitle().contains(title, Qt::CaseInsensitive)) {
                 temp.append(sc);
             }
         }

@@ -2,7 +2,7 @@
 #define CUSER_H
 
 #include <QString>
-
+#include <QJsonObject>
 class CUser
 {
 private:
@@ -12,6 +12,10 @@ private:
 public:
     CUser();
     CUser(QString userId, QString userPw);
+
+    /* JSON */
+    QJsonObject toJson() const;
+    void fromJson(const QJsonObject& json);
 
     void setId(const int id);
     int getId() const;

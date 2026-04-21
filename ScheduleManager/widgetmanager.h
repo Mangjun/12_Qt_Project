@@ -1,8 +1,14 @@
 #ifndef WIDGETMANAGER_H
 #define WIDGETMANAGER_H
 
+#include <QCoreApplication>
 #include <QObject>
 #include <QList>
+#include <QDir>
+#include <QStandardPaths>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 #include "cuser.h"
 #include "cschedule.h"
@@ -28,6 +34,10 @@ private:
     static int scheduleNumber;              // 일정 식별자
 
 public:
+    static QString getBasePath() {
+        return QCoreApplication::applicationDirPath() + "/data";
+    }
+
     static WidgetManager& instance()
     {
         static WidgetManager inst;
@@ -44,7 +54,7 @@ public:
     void setUserInfo(const CUser& user);
 
     /* 일정 관리 */
-    void updateCache(const QList<CSchedule>& vcs);
+    void loadSchedulesFromDisk();
     QList<QDate> getDates();
     QList<CSchedule> getSchedules(QDate date);
 

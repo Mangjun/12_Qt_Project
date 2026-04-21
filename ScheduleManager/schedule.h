@@ -27,8 +27,8 @@ private:
     void gotoDate();
 
     /* 비즈니스 로직 */
-    void updateSchedule(CSchedule sc);
-    void deleteSchedule(CSchedule sc);
+    void updateSchedule(const CSchedule& sc);
+    void deleteSchedule(const CSchedule& sc);
 
 signals:
     /* 다른 위젯에게 정보 보내기 */
