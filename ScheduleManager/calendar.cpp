@@ -11,6 +11,7 @@ Calendar::Calendar(QWidget *parent)
 
     connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this, SLOT(clickedDate(QDate)));
     connect(ui->searchButton,SIGNAL(clicked(bool)),this, SLOT(clickedSearchBtn()));
+    connect(ui->searchResults,SIGNAL(clicked(QModelIndex)),this,SLOT(clickedSchedule(const QModelIndex&)));
 }
 
 Calendar::~Calendar()
@@ -89,9 +90,16 @@ void Calendar::clickedDate(QDate date)
     gotoDate();
 }
 
-void Calendar::clickedSchedule(int index)
+void Calendar::clickedSchedule(const QModelIndex& index)
 {
+    int row = index.row();
 
+    if (row >= 0 && row < searchList.size()) {
+        CSchedule selectedSchedule = searchList.at(row);
+
+        emit sendScheduleInfo(selectedSchedule);
+        gotoSchedule();
+    }
 }
 
 
