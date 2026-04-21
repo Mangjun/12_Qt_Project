@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "cuser.h"
+#include "widgetmanager.h"
 
 namespace Ui {
 class Signup;
