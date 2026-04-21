@@ -15,6 +15,12 @@ AddSchedule::~AddSchedule()
     delete ui;
 }
 
+void AddSchedule::setDate(QDate date)
+{
+    this->date = date;
+    ui->dateInput->setDate(date);
+}
+
 void AddSchedule::addSchedule(CSchedule& schedule)
 {
     WidgetManager::instance().insertSchedule(schedule);
@@ -25,7 +31,7 @@ void AddSchedule::clickedAcceptBtn()
 {
     QString title = ui->titleInput->text();
     QDate date = ui->dateInput->date();
-    QString details = ui->dateInput->text();
+    QString details = ui->detailsInput->toPlainText();
 
     CSchedule newSchedule(title, date, details);
     addSchedule(newSchedule);

@@ -2,6 +2,7 @@
 #define DATE_H
 
 #include <QWidget>
+#include <QStringListModel>
 #include "widgetmanager.h"
 #include "cschedule.h"
 
@@ -16,7 +17,6 @@ class Date : public QWidget
 public:
     explicit Date(QWidget *parent = nullptr);
     ~Date();
-    void deleteSchedule(int index);
 
 signals:
     /* 화면 간의 통신 */
@@ -26,9 +26,12 @@ signals:
 private:
     Ui::Date *ui;
     QDate date;
+    QList<CSchedule> currentSchedules;
+    QStringListModel *model;
 
     void gotoCalendar();
     void gotoSchedule();
+    void updateUI();
 
 private slots:
     /* 화면 간의 통신 */
@@ -38,8 +41,7 @@ private slots:
     void back();
     void left();
     void right();
-    void clickedDate();
-    void clickedSchedule(int index);
+    void clickedSchedule(const QModelIndex& index);
     void gotoAddSchedule();
 };
 

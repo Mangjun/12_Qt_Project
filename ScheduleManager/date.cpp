@@ -9,19 +9,19 @@ Date::Date(QWidget *parent)
     , ui(new Ui::Date)
 {
     ui->setupUi(this);
+
+    this->model = new QStringListModel(this);
+
     connect(ui->backButton, SIGNAL(clicked(bool)), this, SLOT(back()));
     connect(ui->addScheduleButton, SIGNAL(clicked(bool)), this, SLOT(gotoAddSchedule()));
+    connect(ui->prevDayButton, SIGNAL(clicked(bool)), this, SLOT(left()));
+    connect(ui->nextDayButton, SIGNAL(clicked(bool)), this, SLOT(right()));
+    connect(ui->scheduleListView, SIGNAL(clicked(QModelIndex)), this, SLOT(clickedSchedule(const QModelIndex&)));
 }
 
 Date::~Date()
 {
     delete ui;
-}
-
-/* 비즈니스 로직 */
-void Date::deleteSchedule(int index)
-{
-
 }
 
 /* 이벤트 처리 */
@@ -33,35 +33,59 @@ void Date::back()
 
 void Date::left()
 {
-
+    this->date = this->date.addDays(-1);
+    updateUI();
 }
 
 void Date::right()
 {
-
+    this->date = this->date.addDays(1);
+    updateUI();
 }
 
-void Date::clickedDate()
+void Date::clickedSchedule(const QModelIndex& index)
 {
+    int row = index.row();
 
-}
+    if (row >= 0 && row < currentSchedules.size()) {
+        CSchedule selectedSchedule = currentSchedules.at(row);
 
-void Date::clickedSchedule(int index)
-{
-
+        emit sendScheduleInfo(selectedSchedule);
+        gotoSchedule();
+    }
 }
 
 void Date::receiveDateInfo(QDate date)
 {
     this->date = date;
-    ui->dateDisplayButton->setText(QString("%1년 %2월 %3일").arg(date.year()).arg(date.month()).arg(date.day()));
+    updateUI();
+}
+
+void Date::updateUI()
+{
+    QString dateStr = this->date.toString("yyyy년 MM월 dd일");
+    ui->dateDisplayButton->setText(dateStr);
+
+    this->currentSchedules = WidgetManager::instance().getSchedules(this->date);
+
+    QStringList titleList;
+    for(const CSchedule& s : this->currentSchedules) {
+        titleList << s.getTitle();
+    }
+
+    this->model->setStringList(titleList);
+    ui->scheduleListView->setModel(this->model);
 }
 
 /* 화면 이동 처리 */
 void Date::gotoAddSchedule()
 {
     AddSchedule addSchedule;
-    addSchedule.exec();
+    addSchedule.setDate(date);
+
+    if (addSchedule.exec() == QDialog::Accepted) {
+        updateUI();
+    }
 }
 
 void Date::gotoCalendar()

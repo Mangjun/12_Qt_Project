@@ -2,6 +2,7 @@
 #define ADDSCHEDULE_H
 
 #include <QDialog>
+#include <QDate>
 #include "widgetmanager.h"
 #include "cschedule.h"
 #include "QDate"
@@ -17,9 +18,12 @@ class AddSchedule : public QDialog
 public:
     explicit AddSchedule(QWidget *parent = nullptr);
     ~AddSchedule();
+    void setDate(QDate date);
 
 private:
     Ui::AddSchedule *ui;
+    QDate date;
+
     void addSchedule(CSchedule& schedule);
 
 private slots:
