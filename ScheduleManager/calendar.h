@@ -48,6 +48,6 @@ private slots:
     /* 이벤트 처리 */
     void clickedSearchBtn();        // 검색 버튼 클릭
     void clickedDate(QDate date);   // 날짜 클릭
-    void clickedSchedule(int index);// 검색한 일정 클릭
+    void clickedSchedule(const QModelIndex& index);// 검색한 일정 클릭
 };
 #endif // CALENDAR_H
