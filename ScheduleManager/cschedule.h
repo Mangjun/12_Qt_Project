@@ -15,7 +15,7 @@ private:
     QString detail;     // 세부 사항
 public:
     CSchedule();
-    CSchedule(QString title, QDate date, QString detail);
+    CSchedule(const QString& title, const QDate& date, const QString& detail);
 
     /* JSON */
     QJsonObject toJson() const;
@@ -24,14 +24,14 @@ public:
     void setId(const int id);
     int getId() const;
 
-    void setTitle(const QString title);
-    QString getTitle() const;
+    void setTitle(const QString& title);
+    const QString getTitle() const;
 
-    void setDate(const QDate date);
-    QDate getDate() const;
+    void setDate(const QDate& date);
+    const QDate getDate() const;
 
-    void setDetail(const QString detail);
-    QString getDetail() const;
+    void setDetail(const QString& detail);
+    const QString getDetail() const;
 };
 
 #endif // CSCHEDULE_H

@@ -11,7 +11,7 @@ private:
     QString userPw;     // 패스워드
 public:
     CUser();
-    CUser(QString userId, QString userPw);
+    CUser(const QString& userId, const QString& userPw);
 
     /* JSON */
     QJsonObject toJson() const;
@@ -20,11 +20,11 @@ public:
     void setId(const int id);
     int getId() const;
 
-    void setUserId(const QString userId);
-    QString getUserId() const;
+    void setUserId(const QString& userId);
+    const QString getUserId() const;
 
-    void setUserPw(const QString userPw);
-    QString getUserPw() const;
+    void setUserPw(const QString& userPw);
+    const QString getUserPw() const;
 };
 
 #endif // CUSER_H

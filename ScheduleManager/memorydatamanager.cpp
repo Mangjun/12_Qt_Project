@@ -33,7 +33,7 @@ bool MemoryDataManager::signUp(const CUser& user)
     return true;
 }
 
-void MemoryDataManager::loadSchedules(int userId, QMap<QDate, QList<CSchedule>>& cache)
+void MemoryDataManager::loadSchedules(const int userId, QMap<QDate, QList<CSchedule>>& cache)
 {
     cache.clear();
 
@@ -43,7 +43,7 @@ void MemoryDataManager::loadSchedules(int userId, QMap<QDate, QList<CSchedule>>&
     }
 }
 
-int MemoryDataManager::insertSchedule(int userId, const CSchedule& sc)
+int MemoryDataManager::insertSchedule(const int userId, const CSchedule& sc)
 {
     CSchedule newSc = sc;
     newSc.setId(scheduleCount++);
@@ -51,7 +51,7 @@ int MemoryDataManager::insertSchedule(int userId, const CSchedule& sc)
     return newSc.getId();
 }
 
-bool MemoryDataManager::deleteSchedule(int userId, int scheduleId)
+bool MemoryDataManager::deleteSchedule(const int userId, const int scheduleId)
 {
     for (int i = 0; i < allSchedules.size(); i++)
     {
@@ -64,7 +64,7 @@ bool MemoryDataManager::deleteSchedule(int userId, int scheduleId)
     return false;
 }
 
-bool MemoryDataManager::updateSchedule(int userId, const CSchedule& sc)
+bool MemoryDataManager::updateSchedule(const int userId, const CSchedule& sc)
 {
     for (int i = 0; i < allSchedules.size(); i++)
     {

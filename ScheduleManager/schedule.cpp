@@ -30,7 +30,7 @@ void Schedule::gotoDate()
 /* 비즈니스 로직 */
 void Schedule::updateSchedule(const CSchedule& sc)
 {
-    WidgetManager::instance().updateSchedule(sc);
+    WidgetManager::instance().updateSchedule(csInfo.getDate(), sc);
 }
 
 void Schedule::deleteSchedule(const CSchedule& sc)
