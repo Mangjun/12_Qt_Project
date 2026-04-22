@@ -10,7 +10,7 @@ Calendar::Calendar(QWidget *parent)
     this->model = new QStringListModel(this);
 
     /* 이벤트 처리 */
-    connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this, SLOT(clickedDate(QDate)));                          // 날짜 클릭
+    connect(ui->calendarWidget,SIGNAL(clicked(QDate)),this, SLOT(clickedDate(const QDate&)));                   // 날짜 클릭
     connect(ui->searchButton,SIGNAL(clicked(bool)),this, SLOT(clickedSearchBtn()));                             // 검색 버튼 클릭
     connect(ui->searchResults,SIGNAL(clicked(QModelIndex)),this,SLOT(clickedSchedule(const QModelIndex&)));     // 일정 클릭
 }
@@ -22,6 +22,7 @@ Calendar::~Calendar()
 
 void Calendar::updateUI()
 {
+    ui->searchResults->hide();                                         // 검색 창 닫기
     ui->calendarWidget->setDateTextFormat(QDate(), QTextCharFormat()); // 달력 초기화 -> 동작 안함
 
     QTextCharFormat format;

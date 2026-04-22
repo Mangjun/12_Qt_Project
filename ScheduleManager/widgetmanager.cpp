@@ -17,12 +17,12 @@ WidgetManager::WidgetManager()
     schedulePtr = new Schedule();
 
     /* 화면 통신 처리 */
-    connect(loginPtr, SIGNAL(loginSuccess(QDate)), calendarPtr, SLOT(receiveDateInfo(QDate)));                                      // 로그인 -> 캘린더
-    connect(calendarPtr, SIGNAL(sendDateInfo(QDate)), datePtr, SLOT(receiveDateInfo(QDate)));                                       // 캘린더 -> 날짜
+    connect(loginPtr, SIGNAL(loginSuccess(const QDate&)), calendarPtr, SLOT(receiveDateInfo(const QDate&)));                        // 로그인 -> 캘린더
+    connect(calendarPtr, SIGNAL(sendDateInfo(const QDate&)), datePtr, SLOT(receiveDateInfo(const QDate&)));                         // 캘린더 -> 날짜
     connect(calendarPtr, SIGNAL(sendScheduleInfo(const CSchedule&)), schedulePtr, SLOT(receiveScheduleInfo(const CSchedule&)));     // 캘린더 -> 일정
     connect(datePtr, SIGNAL(sendScheduleInfo(const CSchedule&)), schedulePtr, SLOT(receiveScheduleInfo(const CSchedule&)));         // 날짜 -> 일정
-    connect(datePtr, SIGNAL(sendDateInfo(QDate)), calendarPtr, SLOT(receiveDateInfo(QDate)));                                       // 날짜 -> 캘린더
-    connect(schedulePtr, SIGNAL(sendDateInfo(QDate)), datePtr, SLOT(receiveDateInfo(QDate)));                                       // 일정 -> 날짜
+    connect(datePtr, SIGNAL(sendDateInfo(const QDate&)), calendarPtr, SLOT(receiveDateInfo(const QDate&)));                         // 날짜 -> 캘린더
+    connect(schedulePtr, SIGNAL(sendDateInfo(const QDate&)), datePtr, SLOT(receiveDateInfo(const QDate&)));                         // 일정 -> 날짜
 }
 
 WidgetManager::~WidgetManager() {
