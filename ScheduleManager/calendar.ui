@@ -7,8 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>850</width>
-    <height>850</height>
-   </rect>
+    <height>750</height> </rect>
   </property>
   <property name="styleSheet">
    <string notr="true">
@@ -27,7 +26,6 @@
         font-weight: bold;
         padding: 12px 20px;
     }
-    /* 리스트뷰 스타일: 배경을 흰색으로 하고 그림자 효과 대용으로 테두리 강조 */
     QListView#searchResults {
         background-color: #FFFFFF;
         border: 1px solid #D1D1D6;
@@ -37,41 +35,60 @@
   </property>
   <layout class="QVBoxLayout" name="mainLayout">
    <property name="spacing">
-    <number>0</number> </property>
-   <property name="leftMargin"><number>40</number></property>
-   <property name="topMargin"><number>50</number></property>
-   <property name="rightMargin"><number>40</number></property>
-   <property name="bottomMargin"><number>40</number></property>
-
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>40</number>
+   </property>
+   <property name="topMargin">
+    <number>40</number> </property>
+   <property name="rightMargin">
+    <number>40</number>
+   </property>
+   <property name="bottomMargin">
+    <number>40</number>
+   </property>
    <item>
     <layout class="QVBoxLayout" name="headerLayout">
-     <property name="spacing"><number>15</number></property>
+     <property name="spacing">
+      <number>15</number>
+     </property>
      <item>
       <widget class="QLabel" name="mainTitle">
-       <property name="text"><string>내 일정</string></property>
+       <property name="text">
+        <string>내 일정</string>
+       </property>
       </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="searchActionLayout">
-       <property name="spacing"><number>10</number></property>
+       <property name="spacing">
+        <number>10</number>
+       </property>
        <item>
         <widget class="QLineEdit" name="searchBar">
-         <property name="placeholderText"><string>일정 검색</string></property>
+         <property name="placeholderText">
+          <string>일정 검색</string>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="searchButton">
-         <property name="text"><string>검색</string></property>
+         <property name="text">
+          <string>검색</string>
+         </property>
         </widget>
        </item>
       </layout>
      </item>
     </layout>
    </item>
-
    <item>
     <layout class="QVBoxLayout" name="overlapContainer">
-     <property name="spacing"><number>-1</number></property> <item>
+     <property name="spacing">
+      <number>7</number>
+     </property>
+     <item>
       <widget class="QListView" name="searchResults">
        <property name="maximumSize">
         <size>
@@ -79,10 +96,11 @@
          <height>250</height>
         </size>
        </property>
-       <property name="visible"><bool>false</bool></property>
+       <property name="visible">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
-
      <item>
       <widget class="QCalendarWidget" name="calendarWidget">
        <property name="sizePolicy">
@@ -97,4 +115,6 @@
    </item>
   </layout>
  </widget>
+ <resources/>
+ <connections/>
 </ui>
