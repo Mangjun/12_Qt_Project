@@ -44,20 +44,20 @@ private:
      * @brief searchSchedule 일정 제목으로 검색
      * @param title 제목
      */
-    void searchSchedule(QString title);
+    void searchSchedule(const QString& title);
 
 signals:
     /* 다른 위젯에게 정보 보내기 */
-    void sendDateInfo(QDate date);
+    void sendDateInfo(const QDate& date);
     void sendScheduleInfo(const CSchedule& scInfo);
 
 private slots:
     /* 다른 위젯으로부터 정보 받기 */
-    void receiveDateInfo(QDate date);
+    void receiveDateInfo(const QDate& date);
 
     /* 이벤트 처리 */
     void clickedSearchBtn();                        // 검색 버튼 클릭
-    void clickedDate(QDate date);                   // 날짜 클릭
+    void clickedDate(const QDate& date);            // 날짜 클릭
     void clickedSchedule(const QModelIndex& index); // 검색한 일정 클릭
 };
 #endif // CALENDAR_H

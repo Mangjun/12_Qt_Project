@@ -30,17 +30,17 @@ WidgetManager::~WidgetManager() {
 }
 
 /* 화면 반환 */
-Calendar* WidgetManager::getCalendar()
+Calendar* WidgetManager::getCalendar() const
 {
     return calendarPtr;
 }
 
-Date* WidgetManager::getDate()
+Date* WidgetManager::getDate() const
 {
     return datePtr;
 }
 
-Schedule* WidgetManager::getSchedule()
+Schedule* WidgetManager::getSchedule() const
 {
     return schedulePtr;
 }
@@ -86,7 +86,7 @@ QList<QDate> WidgetManager::getDates()
     return this->cache.keys();
 }
 
-QList<CSchedule> WidgetManager::getSchedules(QDate date)
+QList<CSchedule> WidgetManager::getSchedules(const QDate& date)
 {
     return this->cache.value(date);
 }
@@ -104,22 +104,31 @@ void WidgetManager::insertSchedule(const CSchedule& sc)
     }
 }
 
-void WidgetManager::updateSchedule(const CSchedule& sc)
+void WidgetManager::updateSchedule(const QDate& oldDate, const CSchedule& sc)
 {
     if (dataManager->updateSchedule(userInfo.getId(), sc))
     {
-        QList<CSchedule>& list = this->cache[sc.getDate()];
-        for (auto& item : list)
+        // 날짜 바뀔 수도 있어서 그냥 삭제 후 추가
+        if (this->cache.contains(oldDate))
         {
-            if (item.getId() == sc.getId()) {
-                item = sc;
-                break;
+            QList<CSchedule>& oldList = this->cache[oldDate];
+            for (int i = 0; i < oldList.size(); ++i) {
+                if (oldList[i].getId() == sc.getId()) {
+                    oldList.removeAt(i);
+                    break;
+                }
+            }
+
+            if (oldList.isEmpty()) {
+                this->cache.remove(oldDate);
             }
         }
+
+        this->cache[sc.getDate()].append(sc);
     }
 }
 
-void WidgetManager::deleteSchedule(int scheduleId)
+void WidgetManager::deleteSchedule(const int scheduleId)
 {
     if (dataManager->deleteSchedule(userInfo.getId(), scheduleId))
     {
@@ -143,7 +152,7 @@ void WidgetManager::deleteSchedule(int scheduleId)
     }
 }
 
-QList<CSchedule> WidgetManager::searchSchedule(QString title)
+QList<CSchedule> WidgetManager::searchSchedule(const QString& title)
 {
     QList<CSchedule> temp;
     for (const auto& list : cache.values())

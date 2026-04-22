@@ -38,7 +38,7 @@ public:
      * @param userId        유저 식별자
      * @param cache         캐시
      */
-    virtual void loadSchedules(int userId, QMap<QDate, QList<CSchedule>>& cache) = 0;
+    virtual void loadSchedules(const int userId, QMap<QDate, QList<CSchedule>>& cache) = 0;
 
     /**
      * @brief insertSchedule 일정 추가
@@ -46,7 +46,7 @@ public:
      * @param sc             일정 정보
      * @return               일정 식별자
      */
-    virtual int insertSchedule(int userId, const CSchedule& sc) = 0;
+    virtual int insertSchedule(const int userId, const CSchedule& sc) = 0;
 
     /**
      * @brief deleteSchedule 일정 삭제
@@ -54,7 +54,7 @@ public:
      * @param scheduleId     일정 식별자
      * @return               삭제 성공 여부
      */
-    virtual bool deleteSchedule(int userId, int scheduleId) = 0;
+    virtual bool deleteSchedule(const int userId, const int scheduleId) = 0;
 
     /**
      * @brief updateSchedule 일정 수정
@@ -62,7 +62,7 @@ public:
      * @param sc             일정 수정 내용
      * @return               수정 성공 여부
      */
-    virtual bool updateSchedule(int userId, const CSchedule& sc) = 0;
+    virtual bool updateSchedule(const int userId, const CSchedule& sc) = 0;
 };
 
 #endif // DATAMANAGER_H

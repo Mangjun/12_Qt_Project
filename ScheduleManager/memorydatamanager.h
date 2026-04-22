@@ -14,10 +14,10 @@ public:
     bool login(const CUser& user, CUser& foundUser) override;
     bool signUp(const CUser& user) override;
 
-    void loadSchedules(int userId, QMap<QDate, QList<CSchedule>>& cache) override;
-    int insertSchedule(int userId, const CSchedule& sc) override;
-    bool deleteSchedule(int userId, int scheduleId) override;
-    bool updateSchedule(int userId, const CSchedule& sc) override;
+    void loadSchedules(const int userId, QMap<QDate, QList<CSchedule>>& cache) override;
+    int insertSchedule(const int userId, const CSchedule& sc) override;
+    bool deleteSchedule(const int userId, const int scheduleId) override;
+    bool updateSchedule(const int userId, const CSchedule& sc) override;
 
 private:
     static QList<CUser> users;

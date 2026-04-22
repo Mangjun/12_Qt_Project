@@ -64,7 +64,7 @@ bool JsonDataManager::signUp(const CUser& user) {
     return false;
 }
 
-void JsonDataManager::loadSchedules(int userId, QMap<QDate, QList<CSchedule>>& cache) {
+void JsonDataManager::loadSchedules(const int userId, QMap<QDate, QList<CSchedule>>& cache) {
     cache.clear();
     QFile file(getBasePath() + "/" + QString::number(userId) + "/meta_schedule.json");
     if (!file.open(QIODevice::ReadOnly)) return;
@@ -80,7 +80,7 @@ void JsonDataManager::loadSchedules(int userId, QMap<QDate, QList<CSchedule>>& c
     }
 }
 
-int JsonDataManager::insertSchedule(int userId, const CSchedule& sc) {
+int JsonDataManager::insertSchedule(const int userId, const CSchedule& sc) {
     QString userDir = getBasePath() + "/" + QString::number(userId);
     QDir().mkpath(userDir);
     QFile file(userDir + "/meta_schedule.json");
@@ -111,7 +111,7 @@ int JsonDataManager::insertSchedule(int userId, const CSchedule& sc) {
     return -1;
 }
 
-bool JsonDataManager::deleteSchedule(int userId, int scheduleId) {
+bool JsonDataManager::deleteSchedule(const int userId, const int scheduleId) {
     QString filePath = getBasePath() + "/" + QString::number(userId) + "/meta_schedule.json";
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) return false;
@@ -141,7 +141,7 @@ bool JsonDataManager::deleteSchedule(int userId, int scheduleId) {
     return false;
 }
 
-bool JsonDataManager::updateSchedule(int userId, const CSchedule& sc) {
+bool JsonDataManager::updateSchedule(const int userId, const CSchedule& sc) {
     QString filePath = getBasePath() + "/" + QString::number(userId) + "/meta_schedule.json";
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) return false;

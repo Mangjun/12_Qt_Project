@@ -18,7 +18,7 @@ AddSchedule::~AddSchedule()
     delete ui;
 }
 
-void AddSchedule::setDate(QDate date)
+void AddSchedule::setDate(const QDate& date)
 {
     this->date = date;
     ui->dateInput->setDate(date);

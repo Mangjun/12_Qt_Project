@@ -56,7 +56,7 @@ void Date::gotoSchedule()
 }
 
 /* 다른 위젯으로부터 정보 받기 */
-void Date::receiveDateInfo(QDate date)
+void Date::receiveDateInfo(const QDate& date)
 {
     this->date = date;
     updateUI();

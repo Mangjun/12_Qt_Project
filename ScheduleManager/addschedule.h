@@ -20,7 +20,7 @@ public:
      * @brief setDate 날짜 화면에서 날짜 받아오기
      * @param date 보고 있는 날짜
      */
-    void setDate(QDate date);
+    void setDate(const QDate& date);
 
 private:
     Ui::AddSchedule *ui;

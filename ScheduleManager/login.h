@@ -34,7 +34,7 @@ private:
 
 signals:
     /* 다른 위젯에게 정보 보내기 */
-    void loginSuccess(QDate date);
+    void loginSuccess(const QDate& date);
 
 private slots:
     /* 이벤트 처리 */

@@ -38,12 +38,12 @@ private:
 
 signals:
     /* 다른 위젯에게 정보 보내기 */
-    void sendDateInfo(QDate date);
+    void sendDateInfo(const QDate& date);
     void sendScheduleInfo(const CSchedule& sc);
 
 private slots:
     /* 다른 위젯으로부터 정보 받기 */
-    void receiveDateInfo(QDate date);
+    void receiveDateInfo(const QDate& date);
 
     /* 이벤트 처리 */
     void back();                                        // 뒤로 가기

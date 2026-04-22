@@ -54,7 +54,7 @@ void Calendar::gotoSchedule()
 }
 
 /* 비즈니스 로직 */
-void Calendar::searchSchedule(QString title)
+void Calendar::searchSchedule(const QString& title)
 {
     this->searchList = WidgetManager::instance().searchSchedule(title);
 
@@ -68,7 +68,7 @@ void Calendar::searchSchedule(QString title)
 }
 
 /* 다른 위젯으로부터 정보 받기 */
-void Calendar::receiveDateInfo(QDate date)
+void Calendar::receiveDateInfo(const QDate& date)
 {
     updateUI();
     ui->calendarWidget->setSelectedDate(date);
@@ -89,7 +89,7 @@ void Calendar::clickedSearchBtn()
     searchSchedule(ui->searchBar->text());
 }
 
-void Calendar::clickedDate(QDate date)
+void Calendar::clickedDate(const QDate& date)
 {
     emit sendDateInfo(date);
     gotoDate();
@@ -106,6 +106,3 @@ void Calendar::clickedSchedule(const QModelIndex& index)
         gotoSchedule();
     }
 }
-
-
-
